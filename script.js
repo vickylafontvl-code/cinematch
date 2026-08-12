@@ -1294,3 +1294,509 @@ if ("serviceWorker" in navigator) {
   );
 
 }
+// =====================================================
+// SNACKS + RULETA
+// =====================================================
+
+const defaultSnacks = [
+  {
+    id: "helado",
+    name: "Helado",
+    emoji: "🍦"
+  },
+  {
+    id: "smiles",
+    name: "Smiles",
+    emoji: "🫐"
+  },
+  {
+    id: "facturas",
+    name: "Facturas",
+    emoji: "🥐"
+  },
+  {
+    id: "pochoclos",
+    name: "Pochoclos",
+    emoji: "🍿"
+  }
+];
+
+let snackOptions =
+  JSON.parse(
+    localStorage.getItem("cinematch_snacks")
+  ) || defaultSnacks;
+
+let selectedSnackIds =
+  JSON.parse(
+    localStorage.getItem(
+      "cinematch_selected_snacks"
+    )
+  ) || defaultSnacks.map(
+    snack => snack.id
+  );
+
+let snackRotation = 0;
+let snackSpinning = false;
+
+
+// =====================================================
+// ELEMENTOS
+// =====================================================
+
+const snackOptionsContainer =
+  document.getElementById(
+    "snack-options"
+  );
+
+const snackSelectedCount =
+  document.getElementById(
+    "snacks-selected-count"
+  );
+
+const newSnackInput =
+  document.getElementById(
+    "new-snack-input"
+  );
+
+const addSnackButton =
+  document.getElementById(
+    "add-snack-button"
+  );
+
+const snackWheel =
+  document.getElementById(
+    "snack-wheel"
+  );
+
+const spinSnackButton =
+  document.getElementById(
+    "spin-snack-button"
+  );
+
+const snackResult =
+  document.getElementById(
+    "snack-result"
+  );
+
+
+// =====================================================
+// GUARDAR
+// =====================================================
+
+function saveSnackSettings() {
+
+  localStorage.setItem(
+    "cinematch_snacks",
+    JSON.stringify(snackOptions)
+  );
+
+  localStorage.setItem(
+    "cinematch_selected_snacks",
+    JSON.stringify(selectedSnackIds)
+  );
+}
+
+
+// =====================================================
+// RENDER SNACKS
+// =====================================================
+
+function renderSnackOptions() {
+
+  if (!snackOptionsContainer) {
+    return;
+  }
+
+  snackOptionsContainer.innerHTML =
+    snackOptions
+      .map(snack => {
+
+        const checked =
+          selectedSnackIds.includes(
+            snack.id
+          );
+
+        return `
+          <div class="snack-option">
+
+            <input
+              type="checkbox"
+              id="snack-${escapeHTML(snack.id)}"
+              data-snack-id="${escapeHTML(snack.id)}"
+              ${checked ? "checked" : ""}
+            >
+
+            <label
+              for="snack-${escapeHTML(snack.id)}"
+            >
+
+              <span class="snack-emoji">
+                ${snack.emoji}
+              </span>
+
+              <span class="snack-name">
+                ${escapeHTML(snack.name)}
+              </span>
+
+              <span class="snack-check">
+                ${checked ? "✓" : ""}
+              </span>
+
+            </label>
+
+          </div>
+        `;
+      })
+      .join("");
+
+  snackOptionsContainer
+    .querySelectorAll(
+      'input[type="checkbox"]'
+    )
+    .forEach(input => {
+
+      input.addEventListener(
+        "change",
+        () => {
+
+          const id =
+            input.dataset.snackId;
+
+          if (input.checked) {
+
+            if (
+              !selectedSnackIds.includes(id)
+            ) {
+              selectedSnackIds.push(id);
+            }
+
+          } else {
+
+            selectedSnackIds =
+              selectedSnackIds.filter(
+                snackId =>
+                  snackId !== id
+              );
+
+          }
+
+          saveSnackSettings();
+          renderSnackOptions();
+          updateSnackCount();
+          renderWheel();
+
+        }
+      );
+
+    });
+
+  updateSnackCount();
+}
+
+
+// =====================================================
+// CONTADOR
+// =====================================================
+
+function updateSnackCount() {
+
+  if (!snackSelectedCount) {
+    return;
+  }
+
+  snackSelectedCount.textContent =
+    selectedSnackIds.length;
+
+  if (spinSnackButton) {
+
+    spinSnackButton.disabled =
+      selectedSnackIds.length < 2;
+
+  }
+}
+
+
+// =====================================================
+// AGREGAR SNACK
+// =====================================================
+
+function addCustomSnack() {
+
+  if (!newSnackInput) {
+    return;
+  }
+
+  const name =
+    newSnackInput.value.trim();
+
+  if (!name) {
+    return;
+  }
+
+  const id =
+    "custom-" +
+    Date.now();
+
+  const newSnack = {
+    id,
+    name,
+    emoji: "🍬"
+  };
+
+  snackOptions.push(
+    newSnack
+  );
+
+  selectedSnackIds.push(
+    id
+  );
+
+  saveSnackSettings();
+
+  newSnackInput.value = "";
+
+  renderSnackOptions();
+  renderWheel();
+  updateSnackCount();
+}
+
+
+if (addSnackButton) {
+
+  addSnackButton.addEventListener(
+    "click",
+    addCustomSnack
+  );
+
+}
+
+
+if (newSnackInput) {
+
+  newSnackInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+        addCustomSnack();
+      }
+
+    }
+  );
+
+}
+
+
+// =====================================================
+// SNACKS SELECCIONADOS
+// =====================================================
+
+function getSelectedSnacks() {
+
+  return snackOptions.filter(
+    snack =>
+      selectedSnackIds.includes(
+        snack.id
+      )
+  );
+
+}
+
+
+// =====================================================
+// CONSTRUIR RULETA
+// =====================================================
+
+function renderWheel() {
+
+  if (!snackWheel) {
+    return;
+  }
+
+  const snacks =
+    getSelectedSnacks();
+
+  snackWheel
+    .querySelectorAll(
+      ".wheel-item"
+    )
+    .forEach(
+      element =>
+        element.remove()
+    );
+
+  if (snacks.length === 0) {
+    return;
+  }
+
+  const angle =
+    360 / snacks.length;
+
+  snacks.forEach(
+    (snack, index) => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "wheel-item";
+
+      item.innerHTML = `
+        ${snack.emoji}
+        ${escapeHTML(snack.name)}
+      `;
+
+      const rotation =
+        index * angle;
+
+      item.style.transform = `
+        translate(-50%, -50%)
+        rotate(${rotation}deg)
+        translateY(-145px)
+      `;
+
+      snackWheel.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+// =====================================================
+// GIRAR RULETA
+// =====================================================
+
+function spinSnackWheel() {
+
+  if (snackSpinning) {
+    return;
+  }
+
+  const snacks =
+    getSelectedSnacks();
+
+  if (snacks.length < 2) {
+
+    alert(
+      "Elegí al menos dos snacks para girar la ruleta."
+    );
+
+    return;
+  }
+
+  snackSpinning = true;
+
+  spinSnackButton.disabled = true;
+
+  snackResult.innerHTML = "";
+
+  const winnerIndex =
+    Math.floor(
+      Math.random() * snacks.length
+    );
+
+  const sliceAngle =
+    360 / snacks.length;
+
+  /*
+    El puntero está arriba,
+    por lo que calculamos el giro
+    para que el ganador termine
+    exactamente en esa posición.
+  */
+
+  const targetAngle =
+    360 -
+    (
+      winnerIndex * sliceAngle +
+      sliceAngle / 2
+    );
+
+  const extraSpins =
+    360 * 7;
+
+  snackRotation +=
+    extraSpins +
+    targetAngle;
+
+  snackWheel.style.transform =
+    `rotate(${snackRotation}deg)`;
+
+
+  setTimeout(
+    () => {
+
+      const winner =
+        snacks[winnerIndex];
+
+      showSnackWinner(
+        winner
+      );
+
+      snackSpinning = false;
+
+      spinSnackButton.disabled =
+        false;
+
+    },
+    5400
+  );
+
+}
+
+
+if (spinSnackButton) {
+
+  spinSnackButton.addEventListener(
+    "click",
+    spinSnackWheel
+  );
+
+}
+
+
+// =====================================================
+// MOSTRAR GANADOR
+// =====================================================
+
+function showSnackWinner(
+  snack
+) {
+
+  if (!snackResult) {
+    return;
+  }
+
+  snackResult.innerHTML = `
+    <div class="snack-result-card">
+
+      <div class="snack-result-emoji">
+        ${snack.emoji}
+      </div>
+
+      <div class="snack-result-label">
+        ESTA NOCHE TOCA
+      </div>
+
+      <h3 class="snack-result-name">
+        ${escapeHTML(snack.name)}
+      </h3>
+
+    </div>
+  `;
+
+}
+
+
+// =====================================================
+// INICIALIZAR
+// =====================================================
+
+renderSnackOptions();
+renderWheel();
+updateSnackCount();
