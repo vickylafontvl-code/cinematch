@@ -132,18 +132,18 @@ function showUserSelector() {
       </p>
 
       <button
-        id="victoria-button"
-        type="button"
-      >
-        ❤️ Victoria
-      </button>
+  id="victoria-button"
+  type="button"
+>
+  👩🏼 Victoria
+</button>
 
-      <button
-        id="axel-button"
-        type="button"
-      >
-        💙 Axel
-      </button>
+<button
+  id="axel-button"
+  type="button"
+>
+  🧑🏽‍🦱 Axel
+</button>
 
     </div>
   `;
