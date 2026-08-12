@@ -2951,16 +2951,48 @@ main {
 
 .wheel-item {
   position: absolute;
+
   z-index: 5;
+
   left: 50%;
   top: 50%;
-  transform-origin: center;
-  font-size: clamp(0.85rem, 2vw, 1rem);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 105px;
+
+  text-align: center;
+
+  font-size: 0.9rem;
   font-weight: 750;
-  white-space: nowrap;
+
+  line-height: 1.15;
+
+  white-space: normal;
+
   pointer-events: none;
+
+  transform-origin: center center;
 }
 
+.wheel-item-emoji {
+  display: block;
+  margin-bottom: 6px;
+
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.wheel-item-name {
+  display: block;
+
+  max-width: 105px;
+
+  overflow-wrap: anywhere;
+}
 
 /* =====================================================
    BOTÓN
