@@ -100,7 +100,6 @@ function getPosterHTML(movie, large = false) {
         <div class="poster-placeholder-icon">
           🎬
         </div>
-
         <span>${title}</span>
       </div>
     `;
@@ -117,11 +116,35 @@ function getPosterHTML(movie, large = false) {
   `;
 }
 
+function resetShuffleButton(text = "Sortear película") {
+  if (!shuffleButton) {
+    return;
+  }
+
+  shuffleButton.disabled = false;
+
+  shuffleButton.innerHTML = `
+    <span class="button-circle">
+      <span class="play-icon">▶</span>
+    </span>
+
+    <span>${text}</span>
+
+    <span class="button-arrow">
+      →
+    </span>
+  `;
+}
+
 // =====================================================
 // USUARIO
 // =====================================================
 
 function showUserSelector() {
+  if (!movieResult) {
+    return;
+  }
+
   movieResult.innerHTML = `
     <div class="user-selector">
 
@@ -132,41 +155,35 @@ function showUserSelector() {
       </p>
 
       <button
-  id="victoria-button"
-  type="button"
->
-  👩🏼 Victoria
-</button>
+        id="victoria-button"
+        type="button"
+      >
+        👩🏼 Victoria
+      </button>
 
-<button
-  id="axel-button"
-  type="button"
->
-  🧑🏽‍🦱 Axel
-</button>
+      <button
+        id="axel-button"
+        type="button"
+      >
+        🧑🏽‍🦱 Axel
+      </button>
 
     </div>
   `;
 
-  const victoriaButton =
-    document.getElementById("victoria-button");
-
-  const axelButton =
-    document.getElementById("axel-button");
-
-  if (victoriaButton) {
-    victoriaButton.addEventListener(
+  document
+    .getElementById("victoria-button")
+    ?.addEventListener(
       "click",
       () => selectUser(VICTORIA_ID)
     );
-  }
 
-  if (axelButton) {
-    axelButton.addEventListener(
+  document
+    .getElementById("axel-button")
+    ?.addEventListener(
       "click",
       () => selectUser(AXEL_ID)
     );
-  }
 }
 
 function selectUser(userId) {
@@ -179,23 +196,25 @@ function selectUser(userId) {
 
   updateUserDisplay();
 
-  movieResult.innerHTML = `
-    <div class="empty-result">
+  if (movieResult) {
+    movieResult.innerHTML = `
+      <div class="empty-result">
 
-      <div class="empty-result-icon">
-        ✓
+        <div class="empty-result-icon">
+          ✓
+        </div>
+
+        <h2>
+          Usuario seleccionado
+        </h2>
+
+        <p>
+          Ahora pueden sortear una película.
+        </p>
+
       </div>
-
-      <h2>
-        Usuario seleccionado
-      </h2>
-
-      <p>
-        Ahora pueden sortear una película.
-      </p>
-
-    </div>
-  `;
+    `;
+  }
 
   loadWatchedMovies();
 }
@@ -206,11 +225,14 @@ function updateUserDisplay() {
   }
 
   if (currentUserId === VICTORIA_ID) {
-    currentUser.textContent = "👩🏼 Victoria";
+    currentUser.textContent =
+      "👩🏼 Victoria";
   } else if (currentUserId === AXEL_ID) {
-    currentUser.textContent = "🧑🏽‍🦱 Axel";
+    currentUser.textContent =
+      "🧑🏽‍🦱 Axel";
   } else {
-    currentUser.textContent = "No seleccionado";
+    currentUser.textContent =
+      "No seleccionado";
   }
 }
 
@@ -272,12 +294,11 @@ async function shuffleMovie() {
     return;
   }
 
-  if (!shuffleButton) {
+  if (!shuffleButton || !movieResult) {
     return;
   }
 
   shuffleButton.disabled = true;
-
   shuffleButton.innerHTML =
     "🎲 Sorteando...";
 
@@ -327,22 +348,7 @@ async function shuffleMovie() {
       </div>
     `;
 
-    shuffleButton.disabled = false;
-
-    shuffleButton.innerHTML = `
-      <span class="button-circle">
-        <span class="play-icon">▶</span>
-      </span>
-
-      <span>
-        Sortear película
-      </span>
-
-      <span class="button-arrow">
-        →
-      </span>
-    `;
-
+    resetShuffleButton();
     return;
   }
 
@@ -365,22 +371,7 @@ async function shuffleMovie() {
       </div>
     `;
 
-    shuffleButton.disabled = false;
-
-    shuffleButton.innerHTML = `
-      <span class="button-circle">
-        <span class="play-icon">▶</span>
-      </span>
-
-      <span>
-        Sortear película
-      </span>
-
-      <span class="button-arrow">
-        →
-      </span>
-    `;
-
+    resetShuffleButton();
     return;
   }
 
@@ -393,21 +384,7 @@ async function shuffleMovie() {
 
   await showMovie();
 
-  shuffleButton.disabled = false;
-
-  shuffleButton.innerHTML = `
-    <span class="button-circle">
-      <span class="play-icon">▶</span>
-    </span>
-
-    <span>
-      Sortear otra
-    </span>
-
-    <span class="button-arrow">
-      →
-    </span>
-  `;
+  resetShuffleButton("Sortear otra");
 }
 
 // =====================================================
@@ -448,6 +425,12 @@ async function showMovie() {
         rating.user_id === AXEL_ID
     );
 
+  const myRating =
+    ratings.find(
+      rating =>
+        rating.user_id === currentUserId
+    );
+
   let average = null;
 
   if (
@@ -471,7 +454,9 @@ async function showMovie() {
 
   let status;
 
-  if (currentMovie.status === "pending") {
+  if (
+    currentMovie.status === "pending"
+  ) {
     status = "Aún no la miraron";
   } else if (
     currentMovie.status === "watched"
@@ -659,8 +644,17 @@ async function showMovie() {
               const score =
                 index / 2;
 
+              const selected =
+                myRating &&
+                Number(myRating.score) === score
+                  ? "selected"
+                  : "";
+
               return `
-                <option value="${score}">
+                <option
+                  value="${score}"
+                  ${selected}
+                >
                   ${score}
                 </option>
               `;
@@ -681,29 +675,19 @@ async function showMovie() {
     </div>
   `;
 
-  const watchedButton =
-    document.getElementById(
-      "watched-button"
-    );
-
-  if (watchedButton) {
-    watchedButton.addEventListener(
+  document
+    .getElementById("watched-button")
+    ?.addEventListener(
       "click",
       markAsWatched
     );
-  }
 
-  const saveButton =
-    document.getElementById(
-      "save-rating-button"
-    );
-
-  if (saveButton) {
-    saveButton.addEventListener(
+  document
+    .getElementById("save-rating-button")
+    ?.addEventListener(
       "click",
       saveRating
     );
-  }
 }
 
 // =====================================================
@@ -725,7 +709,6 @@ async function markAsWatched() {
   }
 
   watchedButton.disabled = true;
-
   watchedButton.textContent =
     "Guardando...";
 
@@ -748,7 +731,6 @@ async function markAsWatched() {
     );
 
     watchedButton.disabled = false;
-
     watchedButton.textContent =
       "❌ Error. Intentar de nuevo";
 
@@ -807,7 +789,6 @@ async function saveRating() {
   }
 
   saveButton.disabled = true;
-
   saveButton.textContent =
     "Guardando...";
 
@@ -834,7 +815,6 @@ async function saveRating() {
     );
 
     saveButton.disabled = false;
-
     saveButton.textContent =
       "⭐ Guardar puntuación";
 
@@ -844,6 +824,7 @@ async function saveRating() {
   let error = null;
 
   if (existingRating) {
+
     const result =
       await supabase
         .from("ratings")
@@ -860,6 +841,7 @@ async function saveRating() {
     error = result.error;
 
   } else {
+
     const result =
       await supabase
         .from("ratings")
@@ -882,7 +864,6 @@ async function saveRating() {
     );
 
     saveButton.disabled = false;
-
     saveButton.textContent =
       "❌ Error. Intentar de nuevo";
 
@@ -981,25 +962,19 @@ async function loadWatchedMovies() {
       movie => movie.id
     );
 
-  if (movieIds.length > 0) {
-    const {
-      data: ratingData,
-      error: ratingsError
-    } = await supabase
-      .from("ratings")
-      .select("*")
-      .in(
-        "movie_id",
-        movieIds
-      );
+  const {
+    data: ratingData,
+    error: ratingsError
+  } = await supabase
+    .from("ratings")
+    .select("*")
+    .in(
+      "movie_id",
+      movieIds
+    );
 
-    if (
-      !ratingsError &&
-      ratingData
-    ) {
-      ratings =
-        ratingData;
-    }
+  if (!ratingsError && ratingData) {
+    ratings = ratingData;
   }
 
   watchedMovies.innerHTML =
@@ -1207,8 +1182,7 @@ async function loadWatchedMovies() {
             return;
           }
 
-          currentMovie =
-            movie;
+          currentMovie = movie;
 
           showMovie();
 
@@ -1227,12 +1201,17 @@ async function loadWatchedMovies() {
 // =====================================================
 
 async function init() {
-  console.log("CineMatch iniciando...");
+  console.log(
+    "CineMatch iniciando..."
+  );
 
   updateUserDisplay();
 
-  await loadMovies();
+  if (!currentUserId) {
+    showUserSelector();
+  }
 
+  await loadMovies();
   await loadWatchedMovies();
 
   console.log(
@@ -1245,20 +1224,30 @@ async function init() {
   );
 }
 
-// Botón principal
+// =====================================================
+// BOTÓN PRINCIPAL
+// =====================================================
+
 if (shuffleButton) {
-  shuffleButton.addEventListener("click", () => {
-    console.log("✅ CLICK EN SORTear");
-    shuffleMovie();
-  });
-}else {
+
+  shuffleButton.addEventListener(
+    "click",
+    () => {
+      console.log(
+        "✅ CLICK EN SORTEAR"
+      );
+
+      shuffleMovie();
+    }
+  );
+
+} else {
+
   console.error(
     "No se encontró #shuffle-button"
   );
-}
 
-// Inicio
-init();
+}
 
 // =====================================================
 // SERVICE WORKER
@@ -1294,6 +1283,7 @@ if ("serviceWorker" in navigator) {
   );
 
 }
+
 // =====================================================
 // SNACKS + RULETA
 // =====================================================
@@ -1321,26 +1311,51 @@ const defaultSnacks = [
   }
 ];
 
-let snackOptions =
-  JSON.parse(
-    localStorage.getItem("cinematch_snacks")
-  ) || defaultSnacks;
+let snackOptions;
+let selectedSnackIds;
 
-let selectedSnackIds =
-  JSON.parse(
-    localStorage.getItem(
-      "cinematch_selected_snacks"
-    )
-  ) || defaultSnacks.map(
-    snack => snack.id
-  );
+try {
+
+  snackOptions =
+    JSON.parse(
+      localStorage.getItem(
+        "cinematch_snacks"
+      )
+    ) || defaultSnacks;
+
+} catch {
+
+  snackOptions =
+    defaultSnacks;
+
+}
+
+try {
+
+  selectedSnackIds =
+    JSON.parse(
+      localStorage.getItem(
+        "cinematch_selected_snacks"
+      )
+    ) ||
+    defaultSnacks.map(
+      snack => snack.id
+    );
+
+} catch {
+
+  selectedSnackIds =
+    defaultSnacks.map(
+      snack => snack.id
+    );
+
+}
 
 let snackRotation = 0;
 let snackSpinning = false;
 
-
 // =====================================================
-// ELEMENTOS
+// ELEMENTOS RULETA
 // =====================================================
 
 const snackOptionsContainer =
@@ -1378,9 +1393,8 @@ const snackResult =
     "snack-result"
   );
 
-
 // =====================================================
-// GUARDAR
+// GUARDAR SNACKS
 // =====================================================
 
 function saveSnackSettings() {
@@ -1394,8 +1408,8 @@ function saveSnackSettings() {
     "cinematch_selected_snacks",
     JSON.stringify(selectedSnackIds)
   );
-}
 
+}
 
 // =====================================================
 // RENDER SNACKS
@@ -1431,7 +1445,7 @@ function renderSnackOptions() {
             >
 
               <span class="snack-emoji">
-                ${snack.emoji}
+                ${escapeHTML(snack.emoji)}
               </span>
 
               <span class="snack-name">
@@ -1446,6 +1460,7 @@ function renderSnackOptions() {
 
           </div>
         `;
+
       })
       .join("");
 
@@ -1467,7 +1482,9 @@ function renderSnackOptions() {
             if (
               !selectedSnackIds.includes(id)
             ) {
+
               selectedSnackIds.push(id);
+
             }
 
           } else {
@@ -1493,7 +1510,6 @@ function renderSnackOptions() {
   updateSnackCount();
 }
 
-
 // =====================================================
 // CONTADOR
 // =====================================================
@@ -1513,8 +1529,8 @@ function updateSnackCount() {
       selectedSnackIds.length < 2;
 
   }
-}
 
+}
 
 // =====================================================
 // AGREGAR SNACK
@@ -1560,7 +1576,6 @@ function addCustomSnack() {
   updateSnackCount();
 }
 
-
 if (addSnackButton) {
 
   addSnackButton.addEventListener(
@@ -1570,7 +1585,6 @@ if (addSnackButton) {
 
 }
 
-
 if (newSnackInput) {
 
   newSnackInput.addEventListener(
@@ -1578,14 +1592,16 @@ if (newSnackInput) {
     event => {
 
       if (event.key === "Enter") {
+
+        event.preventDefault();
         addCustomSnack();
+
       }
 
     }
   );
 
 }
-
 
 // =====================================================
 // SNACKS SELECCIONADOS
@@ -1602,7 +1618,6 @@ function getSelectedSnacks() {
 
 }
 
-
 // =====================================================
 // CONSTRUIR RULETA
 // =====================================================
@@ -1617,9 +1632,12 @@ function renderWheel() {
     getSelectedSnacks();
 
   snackWheel
-    .querySelectorAll(".wheel-item")
+    .querySelectorAll(
+      ".wheel-item"
+    )
     .forEach(
-      element => element.remove()
+      element =>
+        element.remove()
     );
 
   if (snacks.length === 0) {
@@ -1632,11 +1650,6 @@ function renderWheel() {
     return;
   }
 
-
-  // ===================================================
-  // COLORES
-  // ===================================================
-
   const colors = [
     "#f6d7d7",
     "#d8e5f5",
@@ -1648,10 +1661,8 @@ function renderWheel() {
     "#ead8e1"
   ];
 
-
   const sliceAngle =
     360 / snacks.length;
-
 
   const gradientParts =
     snacks.map(
@@ -1661,7 +1672,8 @@ function renderWheel() {
           index * sliceAngle;
 
         const end =
-          (index + 1) * sliceAngle;
+          (index + 1) *
+          sliceAngle;
 
         const color =
           colors[
@@ -1677,42 +1689,30 @@ function renderWheel() {
       }
     );
 
-
   snackWheel.style.setProperty(
     "--wheel-colors",
     gradientParts.join(",")
   );
 
-
-  // ===================================================
-  // TEXTO
-  // ===================================================
-
   snacks.forEach(
     (snack, index) => {
 
       const item =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       item.className =
         "wheel-item";
-
-
-      /*
-        El centro de cada sector.
-        El -90 hace que el primer sector
-        comience arriba.
-      */
 
       const angle =
         index * sliceAngle +
         sliceAngle / 2 -
         90;
 
-
       item.innerHTML = `
         <span class="wheel-item-emoji">
-          ${snack.emoji}
+          ${escapeHTML(snack.emoji)}
         </span>
 
         <span class="wheel-item-name">
@@ -1720,20 +1720,12 @@ function renderWheel() {
         </span>
       `;
 
-
-      item.style.setProperty(
-        "--item-angle",
-        `${angle}deg`
-      );
-
-
       item.style.transform = `
         translate(-50%, -50%)
         rotate(${angle}deg)
         translateY(-135px)
         rotate(${-angle}deg)
       `;
-
 
       snackWheel.appendChild(
         item
@@ -1750,7 +1742,11 @@ function renderWheel() {
 
 function spinSnackWheel() {
 
-  if (snackSpinning) {
+  if (
+    snackSpinning ||
+    !snackWheel ||
+    !spinSnackButton
+  ) {
     return;
   }
 
@@ -1767,43 +1763,57 @@ function spinSnackWheel() {
   }
 
   snackSpinning = true;
-
   spinSnackButton.disabled = true;
 
-  snackResult.innerHTML = "";
+  if (snackResult) {
+    snackResult.innerHTML = "";
+  }
 
   const winnerIndex =
     Math.floor(
-      Math.random() * snacks.length
+      Math.random() *
+      snacks.length
     );
 
   const sliceAngle =
     360 / snacks.length;
 
   /*
-    El puntero está arriba,
-    por lo que calculamos el giro
-    para que el ganador termine
-    exactamente en esa posición.
-  */
+   * El puntero está arriba.
+   * Calculamos el ángulo necesario
+   * para que el centro del sector
+   * ganador termine exactamente arriba.
+   */
 
   const targetAngle =
     360 -
     (
-      winnerIndex * sliceAngle +
+      winnerIndex *
+        sliceAngle +
       sliceAngle / 2
     );
+
+  const currentAngle =
+    ((snackRotation % 360) + 360) %
+    360;
+
+  let delta =
+    targetAngle -
+    currentAngle;
+
+  if (delta < 0) {
+    delta += 360;
+  }
 
   const extraSpins =
     360 * 7;
 
   snackRotation +=
     extraSpins +
-    targetAngle;
+    delta;
 
   snackWheel.style.transform =
     `rotate(${snackRotation}deg)`;
-
 
   setTimeout(
     () => {
@@ -1816,16 +1826,13 @@ function spinSnackWheel() {
       );
 
       snackSpinning = false;
-
       spinSnackButton.disabled =
         false;
 
     },
     5400
   );
-
 }
-
 
 if (spinSnackButton) {
 
@@ -1836,14 +1843,11 @@ if (spinSnackButton) {
 
 }
 
-
 // =====================================================
 // MOSTRAR GANADOR
 // =====================================================
 
-function showSnackWinner(
-  snack
-) {
+function showSnackWinner(snack) {
 
   if (!snackResult) {
     return;
@@ -1853,7 +1857,7 @@ function showSnackWinner(
     <div class="snack-result-card">
 
       <div class="snack-result-emoji">
-        ${snack.emoji}
+        ${escapeHTML(snack.emoji)}
       </div>
 
       <div class="snack-result-label">
@@ -1869,7 +1873,6 @@ function showSnackWinner(
 
 }
 
-
 // =====================================================
 // INICIALIZAR
 // =====================================================
@@ -1877,3 +1880,5 @@ function showSnackWinner(
 renderSnackOptions();
 renderWheel();
 updateSnackCount();
+
+init();
