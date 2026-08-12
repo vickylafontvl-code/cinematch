@@ -1247,11 +1247,11 @@ async function init() {
 
 // Botón principal
 if (shuffleButton) {
-  shuffleButton.addEventListener(
-    "click",
-    shuffleMovie
-  );
-} else {
+  shuffleButton.addEventListener("click", () => {
+    console.log("✅ CLICK EN SORTear");
+    shuffleMovie();
+  });
+}else {
   console.error(
     "No se encontró #shuffle-button"
   );
