@@ -1608,7 +1608,74 @@ main {
 
     animation-duration:
       0.01ms !important;
+/* =========================================================
+   MOBILE — EVITAR SCROLL HORIZONTAL
+   ========================================================= */
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+main,
+.topbar,
+.footer {
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .topbar-inner,
+  main,
+  .footer-inner {
+    width: calc(100% - 32px);
+    max-width: 100%;
+  }
+
+  .hero,
+  .result-section,
+  .stats-section,
+  .watched-section {
+    max-width: 100%;
+  }
+
+  .movie-card-featured {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .movie-featured-layout,
+  .movie-featured-info,
+  .ratings-section,
+  .your-rating {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #watched-movies {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .watched-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+     
     transition-duration:
       0.01ms !important;
   }
