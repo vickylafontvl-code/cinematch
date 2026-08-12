@@ -2871,8 +2871,10 @@ main {
 
 .wheel-wrapper {
   position: relative;
-  width: min(420px, 82vw);
+
+  width: min(450px, 88vw);
   aspect-ratio: 1;
+
   margin: 15px auto 35px;
 }
 
