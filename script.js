@@ -593,7 +593,7 @@ async function showMovie() {
 
         <div class="rating-row">
           <span>
-            ❤️ Victoria
+            👩🏼 Victoria
           </span>
 
           <strong>
