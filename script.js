@@ -1121,7 +1121,7 @@ async function loadWatchedMovies() {
               >
 
                 <span>
-                  ❤️
+                  👩🏼
                   ${
                     victoriaRating
                       ? victoriaRating.score
@@ -1130,7 +1130,7 @@ async function loadWatchedMovies() {
                 </span>
 
                 <span>
-                  💙
+                  🧑🏽‍🦱
                   ${
                     axelRating
                       ? axelRating.score
