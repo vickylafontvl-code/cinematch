@@ -1408,9 +1408,18 @@ function saveSnackSettings() {
     "cinematch_selected_snacks",
     JSON.stringify(selectedSnackIds)
   );
-
 }
 
+
+// Corregir automáticamente Smiles
+const smilesSnack = snackOptions.find(
+  snack => snack.id === "smiles"
+);
+
+if (smilesSnack) {
+  smilesSnack.emoji = "🍫";
+  saveSnackSettings();
+}
 // =====================================================
 // RENDER SNACKS
 // =====================================================
