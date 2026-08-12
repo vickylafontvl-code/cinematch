@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>CineMatch</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <meta name="theme-color" content="#E50914" />
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  />
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  />
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="CineMatch"
+  />
+
+  <script
+    type="module"
+    src="script.js"
+    defer
+  ></script>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+
+  <header class="topbar">
+
+    <div class="topbar-inner">
+
+      <a
+        href="#"
+        class="brand"
+        aria-label="CineMatch"
+      >
+        <span class="brand-mark">C</span>
+        <span class="brand-name">CineMatch</span>
+      </a>
+
+      <nav class="main-nav">
+
+        <a
+          href="#discover"
+          class="nav-link active"
+        >
+          Descubrir
+        </a>
+
+        <a
+          href="#watched-section"
+          class="nav-link"
+        >
+          Películas vistas
+        </a>
+
+      </nav>
+
+      <div class="profile-area">
+
+        <span
+          id="current-user"
+          class="current-user"
+        >
+          No seleccionado
+        </span>
+
+        <button
+          id="change-user-button"
+          class="profile-button"
+          type="button"
+          aria-label="Cambiar usuario"
+        >
+          <span class="profile-dot"></span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main>
+
+    <!-- HERO -->
+
+    <section
+      id="discover"
+      class="hero"
+    >
+
+      <div class="hero-copy">
+
+        <span class="eyebrow">
+          CINE · PARA DOS
+        </span>
+
+        <h1>
+          ¿Qué vemos<br />
+          hoy?
+        </h1>
+
+        <p class="hero-description">
+          Una película elegida de nuestra colección.
+          Sin discusiones. Bueno... quizás después.
+        </p>
+
+        <button
+          id="shuffle-button"
+          class="primary-button"
+          type="button"
+        >
+          <span class="play-icon">▶</span>
+          <span>Sortear película</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MOVIE RESULT
+         ================================================= -->
+
+    <section
+      class="result-section"
+      aria-label="Película seleccionada"
+    >
+
+      <div id="movie-result">
+
+        <div class="empty-result">
+
+          <div class="empty-result-icon">
+            🎬
+          </div>
+
+          <h2>
+            Tu próxima película
+          </h2>
+
+          <p>
+            Tocá “Sortear película” y descubramos
+            qué vamos a ver.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         STATS
+         ================================================= -->
+
+    <section
+      class="stats-section"
+      aria-label="Estadísticas"
+    >
+
+      <div class="stat-item">
+
+        <strong
+          id="movie-count"
+          class="stat-number"
+        >
+          —
+        </strong>
+
+        <span class="stat-label">
+          Películas
+        </span>
+
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+
+        <strong
+          id="watched-count"
+          class="stat-number"
+        >
+          0
+        </strong>
+
+        <span class="stat-label">
+          Vistas
+        </span>
+
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item stat-highlight">
+
+        <strong class="stat-symbol">
+          ♥
+        </strong>
+
+        <span class="stat-label">
+          Axel & Victoria
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         WATCHED
+         ================================================= -->
+
+    <section
+      id="watched-section"
+      class="watched-section"
+    >
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-eyebrow">
+            COLECCIÓN
+          </span>
+
+          <h2>
+            Películas vistas
+          </h2>
+
+        </div>
+
+        <span class="section-count">
+          <span id="watched-count-label">Todas</span>
+        </span>
+
+      </div>
+
+
+      <div
+        id="watched-movies"
+        class="watched-movies"
+      >
+
+        <div class="loading-card">
+          Cargando películas vistas...
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="footer">
+
+    <div class="footer-inner">
+
+      <span>
+        CineMatch
+      </span>
+
+      <span>
+        Hecho para Axel & Victoria
+      </span>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
