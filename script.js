@@ -206,7 +206,7 @@ function updateUserDisplay() {
   }
 
   if (currentUserId === VICTORIA_ID) {
-    currentUser.textContent = "❤️ Victoria";
+    currentUser.textContent = "👩🏼 Victoria";
   } else if (currentUserId === AXEL_ID) {
     currentUser.textContent = "💙 Axel";
   } else {
