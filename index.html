@@ -1,61 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#f4f1eb">
+
+  <meta
+    name="description"
+    content="CineMatch — elegí, mirá y puntúen películas juntos."
+  >
+
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="stylesheet" href="./styles.css">
 
   <title>CineMatch</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
-
-  <meta name="theme-color" content="#050505" />
-
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  />
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black"
-  />
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="CineMatch"
-  />
-
-  <script
-    type="module"
-    src="script.js"
-    defer
-  ></script>
 </head>
 
 <body>
 
-  <!-- =====================================================
-       CURSOR / DECORACIÓN
-       ===================================================== -->
-
-  <div class="site-noise"></div>
+  <!-- Decorative elements -->
+  <div class="site-noise" aria-hidden="true"></div>
 
   <div
     class="floating-orb floating-orb-one"
@@ -69,46 +39,47 @@
 
 
   <!-- =====================================================
-       NAVIGATION
-       ===================================================== -->
+       TOPBAR
+  ====================================================== -->
 
   <header class="topbar">
 
     <div class="topbar-inner">
 
       <a
-        href="#discover"
         class="brand"
-        aria-label="CineMatch"
+        href="./"
+        aria-label="CineMatch inicio"
       >
-
-        <span class="brand-mark">
-          C
-        </span>
-
-        <span class="brand-name">
-          CineMatch
-        </span>
-
+        <span class="brand-mark">C</span>
+        <span class="brand-name">CineMatch</span>
       </a>
 
 
-      <nav class="main-nav">
-
+      <nav
+        class="main-nav"
+        aria-label="Navegación principal"
+      >
         <a
-          href="#discover"
           class="nav-link active"
+          href="#shuffle"
         >
-          Descubrir
+          Sortear
         </a>
 
         <a
-          href="#watched-section"
           class="nav-link"
+          href="#watched"
         >
-          Colección
+          Vistas
         </a>
 
+        <a
+          class="nav-link"
+          href="#stats"
+        >
+          Estadísticas
+        </a>
       </nav>
 
 
@@ -126,8 +97,12 @@
           class="profile-button"
           type="button"
           aria-label="Cambiar usuario"
+          title="Cambiar usuario"
         >
-          <span class="profile-dot"></span>
+          <span
+            class="profile-dot"
+            aria-hidden="true"
+          ></span>
         </button>
 
       </div>
@@ -139,47 +114,51 @@
 
   <!-- =====================================================
        MAIN
-       ===================================================== -->
+  ====================================================== -->
 
   <main>
 
-
     <!-- ===================================================
          HERO
-         =================================================== -->
+    ==================================================== -->
 
     <section
-      id="discover"
+      id="shuffle"
       class="hero"
+      aria-labelledby="hero-title"
     >
 
       <div class="hero-grid">
 
-        <div class="hero-copy reveal">
+        <div class="hero-copy">
 
-          <span class="eyebrow">
-            CINE · PARA DOS
-          </span>
+          <div class="eyebrow">
+            CINE · DOS PERSONAS · UNA PELÍCULA
+          </div>
 
 
-          <h1 class="hero-title">
-
-            <span class="hero-line">
-              ¿Qué vemos
-            </span>
+          <h1
+            id="hero-title"
+            class="hero-title"
+          >
+            <span class="hero-line">Elegí.</span>
 
             <span class="hero-line hero-line-indent">
-              hoy?
+              Mirá.
             </span>
 
+            <span class="hero-line">
+              Puntúen.
+            </span>
           </h1>
 
 
           <div class="hero-bottom">
 
             <p class="hero-description">
-              Una película elegida de nuestra colección.
-              Sin discusiones. Bueno... quizás después.
+              CineMatch encuentra una película pendiente
+              para ustedes. Después pueden marcarla como
+              vista y comparar sus puntuaciones.
             </p>
 
 
@@ -188,19 +167,25 @@
               class="primary-button"
               type="button"
             >
-
               <span class="button-circle">
-                <span class="play-icon">▶</span>
+                <span
+                  class="play-icon"
+                  aria-hidden="true"
+                >
+                  ▶
+                </span>
               </span>
 
               <span>
                 Sortear película
               </span>
 
-              <span class="button-arrow">
-                ↗
+              <span
+                class="button-arrow"
+                aria-hidden="true"
+              >
+                →
               </span>
-
             </button>
 
           </div>
@@ -208,22 +193,22 @@
         </div>
 
 
+        <!-- Decorative orbit -->
+
         <div
           class="hero-decoration"
           aria-hidden="true"
         >
 
           <div class="orbit orbit-one"></div>
-
           <div class="orbit orbit-two"></div>
-
           <div class="orbit orbit-three"></div>
 
-          <span class="orbit-dot"></span>
+          <div class="orbit-dot"></div>
 
-          <span class="hero-number">
-            01
-          </span>
+          <div class="hero-number">
+            01 / 01
+          </div>
 
         </div>
 
@@ -231,54 +216,53 @@
 
 
       <div class="scroll-hint">
-
-        <span>
-          Scroll para descubrir
-        </span>
-
         <span class="scroll-line"></span>
-
+        Scroll para explorar
       </div>
 
     </section>
 
 
     <!-- ===================================================
-         MOVIE RESULT
-         =================================================== -->
+         RESULT
+    ==================================================== -->
 
     <section
-      class="result-section reveal-section"
-      aria-label="Película seleccionada"
+      class="result-section"
+      aria-labelledby="result-heading"
     >
 
       <div class="section-index">
-        02
+        RESULTADO / 01
       </div>
 
-
-      <div id="movie-result">
+      <div
+        id="movie-result"
+        aria-live="polite"
+      >
 
         <div class="empty-result">
 
-          <div class="empty-result-symbol">
-            ✦
+          <div
+            class="empty-result-symbol"
+            aria-hidden="true"
+          >
+            🎬
           </div>
-
 
           <div class="empty-result-content">
 
-            <span class="section-eyebrow">
-              PRÓXIMA ELECCIÓN
-            </span>
+            <div class="section-eyebrow">
+              CINE MATCH
+            </div>
 
-            <h2>
-              Tu próxima película
+            <h2 id="result-heading">
+              ¿Qué vemos hoy?
             </h2>
 
             <p>
-              Tocá “Sortear película” y descubramos
-              qué vamos a ver.
+              Elegí un usuario y tocá “Sortear película”
+              para encontrar la próxima.
             </p>
 
           </div>
@@ -292,22 +276,27 @@
 
     <!-- ===================================================
          STATS
-         =================================================== -->
+    ==================================================== -->
 
     <section
-      class="stats-section reveal-section"
-      aria-label="Estadísticas"
+      id="stats"
+      class="stats-section"
+      aria-labelledby="stats-title"
     >
 
       <div class="stats-intro">
 
-        <span class="section-eyebrow">
-          NUESTRA COLECCIÓN
-        </span>
+        <div class="section-eyebrow">
+          NÚMEROS
+        </div>
+
+        <h2 id="stats-title">
+          Su historial.
+        </h2>
 
         <p>
-          Todo lo que todavía
-          podemos descubrir.
+          Una pequeña colección de películas vistas,
+          puntuadas y compartidas.
         </p>
 
       </div>
@@ -317,15 +306,15 @@
 
         <div class="stat-item">
 
-          <strong
+          <span
             id="movie-count"
             class="stat-number"
           >
             —
-          </strong>
+          </span>
 
           <span class="stat-label">
-            Películas
+            Películas disponibles
           </span>
 
         </div>
@@ -333,15 +322,15 @@
 
         <div class="stat-item">
 
-          <strong
+          <span
             id="watched-count"
             class="stat-number"
           >
-            0
-          </strong>
+            —
+          </span>
 
           <span class="stat-label">
-            Vistas
+            Películas vistas
           </span>
 
         </div>
@@ -349,12 +338,15 @@
 
         <div class="stat-item stat-love">
 
-          <strong class="stat-symbol">
+          <span
+            class="stat-symbol"
+            aria-hidden="true"
+          >
             ♥
-          </strong>
+          </span>
 
           <span class="stat-label">
-            Axel & Victoria
+            Cine compartido
           </span>
 
         </div>
@@ -365,24 +357,25 @@
 
 
     <!-- ===================================================
-         WATCHED COLLECTION
-         =================================================== -->
+         WATCHED
+    ==================================================== -->
 
     <section
-      id="watched-section"
-      class="watched-section reveal-section"
+      id="watched"
+      class="watched-section"
+      aria-labelledby="watched-title"
     >
 
       <div class="section-heading">
 
         <div class="section-heading-left">
 
-          <span class="section-eyebrow">
-            03 · COLECCIÓN
-          </span>
+          <div class="section-eyebrow">
+            HISTORIAL
+          </div>
 
-          <h2>
-            Películas vistas
+          <h2 id="watched-title">
+            Ya vimos.
           </h2>
 
         </div>
@@ -391,12 +384,14 @@
         <div class="section-heading-right">
 
           <span class="section-count">
-            <span id="watched-count-label">
-              Todas
-            </span>
+            <span id="watched-count-heading">—</span>
+            películas
           </span>
 
-          <span class="heading-arrow">
+          <span
+            class="heading-arrow"
+            aria-hidden="true"
+          >
             ↓
           </span>
 
@@ -411,7 +406,7 @@
       >
 
         <div class="loading-card">
-          Cargando películas vistas...
+          Cargando películas vistas…
         </div>
 
       </div>
@@ -424,7 +419,7 @@
 
   <!-- =====================================================
        FOOTER
-       ===================================================== -->
+  ====================================================== -->
 
   <footer class="footer">
 
@@ -444,21 +439,24 @@
 
 
       <div class="footer-center">
-
-        Hecho para Axel & Victoria
-
+        Hecho para elegir qué ver.
       </div>
 
 
       <div class="footer-year">
-
-        CINE · PARA DOS
-
+        2026 · CINE
       </div>
 
     </div>
 
   </footer>
+
+
+  <!-- =====================================================
+       APP
+  ====================================================== -->
+
+  <script type="module" src="./app.js"></script>
 
 </body>
 </html>
