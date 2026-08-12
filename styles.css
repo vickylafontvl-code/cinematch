@@ -47,7 +47,6 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overscroll-behavior-x: none;
   scroll-behavior: smooth;
 }
 
@@ -59,7 +58,6 @@ body {
   padding: 0;
 
   overflow-x: hidden;
-  overscroll-behavior-x: none;
 
   background:
     radial-gradient(
@@ -81,20 +79,16 @@ body {
     sans-serif;
 
   -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-
   line-height: 1.45;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  border: 0;
+main,
+header,
+footer,
+section,
+div,
+article {
+  min-width: 0;
 }
 
 img,
@@ -106,21 +100,22 @@ iframe {
   max-width: 100%;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-p {
+button,
+input,
+select {
+  font: inherit;
   max-width: 100%;
 }
 
-/* =========================================================
-   SELECTION
-========================================================= */
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  max-width: 100%;
+}
 
 ::selection {
   background: var(--netflix-red);
@@ -178,16 +173,13 @@ p {
 }
 
 .topbar-inner {
-  width:
-    min(
-      calc(100% - 48px),
-      var(--max-width)
-    );
-
-  max-width: 100%;
+  width: min(
+    calc(100% - 48px),
+    var(--max-width)
+  );
 
   height: 100%;
-  margin: auto;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
@@ -203,7 +195,6 @@ p {
 .brand {
   display: flex;
   align-items: center;
-
   gap: 10px;
 
   min-width: 0;
@@ -217,10 +208,10 @@ p {
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
   width: 27px;
   height: 27px;
-
-  flex: 0 0 27px;
 
   border-radius: 8px;
 
@@ -239,8 +230,6 @@ p {
 
   font-size: 17px;
   color: var(--white);
-
-  white-space: nowrap;
 }
 
 /* =========================================================
@@ -255,10 +244,7 @@ p {
 
   display: flex;
   align-items: center;
-
   gap: 30px;
-
-  white-space: nowrap;
 }
 
 .nav-link {
@@ -268,6 +254,8 @@ p {
 
   font-size: 13px;
   font-weight: 500;
+
+  white-space: nowrap;
 
   transition:
     color var(--transition);
@@ -306,14 +294,13 @@ p {
 .profile-area {
   display: flex;
   align-items: center;
-
   gap: 12px;
 
   min-width: 0;
 }
 
 .current-user {
-  max-width: 160px;
+  max-width: 120px;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -326,10 +313,10 @@ p {
 }
 
 .profile-button {
+  flex-shrink: 0;
+
   width: 31px;
   height: 31px;
-
-  flex: 0 0 31px;
 
   display: flex;
   align-items: center;
@@ -375,15 +362,14 @@ p {
 ========================================================= */
 
 main {
-  width:
-    min(
-      calc(100% - 48px),
-      var(--max-width)
-    );
+  width: min(
+    calc(100% - 48px),
+    var(--max-width)
+  );
 
-  max-width: 100%;
+  max-width: var(--max-width);
 
-  margin: auto;
+  margin: 0 auto;
 
   min-width: 0;
 }
@@ -393,9 +379,6 @@ main {
 ========================================================= */
 
 .hero {
-  width: 100%;
-  max-width: 100%;
-
   min-height: 560px;
 
   display: flex;
@@ -404,8 +387,6 @@ main {
   position: relative;
 
   overflow: hidden;
-
-  min-width: 0;
 }
 
 .hero::before {
@@ -458,7 +439,6 @@ main {
 }
 
 .hero h1 {
-  width: 100%;
   max-width: 100%;
 
   margin: 0;
@@ -493,8 +473,6 @@ main {
   font-size: 16px;
 
   line-height: 1.65;
-
-  overflow-wrap: break-word;
 }
 
 /* =========================================================
@@ -526,10 +504,6 @@ main {
 
   font-size: 14px;
   font-weight: 700;
-
-  box-shadow:
-    0 8px 28px
-    rgba(229, 9, 20, 0.18);
 
   transition:
     background var(--transition),
@@ -567,17 +541,14 @@ main {
   width: 100%;
   max-width: 100%;
 
-  min-width: 0;
-
   margin-top: -35px;
 
-  overflow: hidden;
+  min-width: 0;
 }
 
 #movie-result {
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 }
 
@@ -629,7 +600,6 @@ main {
 }
 
 .empty-result p {
-  width: 100%;
   max-width: 430px;
 
   margin:
@@ -649,7 +619,6 @@ main {
 
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   overflow: hidden;
@@ -699,7 +668,6 @@ main {
 .movie-featured-layout {
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   display: grid;
@@ -717,9 +685,9 @@ main {
   width: 245px;
   max-width: 100%;
 
-  min-width: 0;
-
   flex-shrink: 0;
+
+  min-width: 0;
 }
 
 .movie-poster-large {
@@ -751,7 +719,6 @@ main {
 .movie-featured-info {
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   display: flex;
@@ -830,6 +797,8 @@ main {
   margin-left: 5px;
 
   color: white;
+
+  overflow-wrap: anywhere;
 }
 
 .already-watched {
@@ -854,9 +823,9 @@ main {
 ========================================================= */
 
 .movie-featured-info > button {
-  min-height: 44px;
-
   max-width: 100%;
+
+  min-height: 44px;
 
   margin-top: 3px;
 
@@ -910,6 +879,8 @@ main {
 
   font-weight: 600;
 
+  overflow-wrap: anywhere;
+
   transition:
     background var(--transition),
     color var(--transition);
@@ -946,8 +917,6 @@ main {
 .ratings-section {
   width: 100%;
   max-width: 480px;
-
-  min-width: 0;
 }
 
 .ratings-section h3,
@@ -968,7 +937,7 @@ main {
 
   min-height: 42px;
 
-  gap: 15px;
+  gap: 12px;
 
   border-bottom:
     1px solid rgba(255, 255, 255, 0.05);
@@ -980,6 +949,8 @@ main {
 
 .rating-row strong {
   color: white;
+
+  flex-shrink: 0;
 }
 
 .average-rating {
@@ -989,7 +960,7 @@ main {
 
   justify-content: space-between;
 
-  gap: 15px;
+  gap: 12px;
 
   margin-top: 12px;
 
@@ -1020,7 +991,6 @@ main {
 .your-rating {
   width: 100%;
   max-width: 360px;
-
   min-width: 0;
 }
 
@@ -1087,6 +1057,7 @@ main {
 .stats-section {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
 
   display: grid;
 
@@ -1119,13 +1090,9 @@ main {
 
   align-items: center;
 
-  justify-content: center;
-
   gap: 5px;
 
   min-width: 0;
-
-  max-width: 100%;
 }
 
 .stat-number {
@@ -1139,8 +1106,6 @@ main {
 }
 
 .stat-label {
-  max-width: 100%;
-
   color: var(--gray-3);
 
   font-size: 9px;
@@ -1179,12 +1144,9 @@ main {
 .watched-section {
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   padding-bottom: 90px;
-
-  overflow: hidden;
 }
 
 .section-heading {
@@ -1197,18 +1159,6 @@ main {
   gap: 20px;
 
   margin-bottom: 24px;
-
-  min-width: 0;
-}
-
-.section-heading h2 {
-  margin: 0;
-
-  font-size: 30px;
-
-  line-height: 1;
-
-  letter-spacing: -1.4px;
 }
 
 .section-eyebrow {
@@ -1226,8 +1176,18 @@ main {
   letter-spacing: 2px;
 }
 
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  letter-spacing: -1.4px;
+}
+
 .section-count {
-  flex: 0 0 auto;
+  flex-shrink: 0;
 
   color: var(--gray-3);
 
@@ -1241,7 +1201,6 @@ main {
 #watched-movies {
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   display: grid;
@@ -1260,7 +1219,6 @@ main {
 
   width: 100%;
   max-width: 100%;
-
   min-width: 0;
 
   min-height: 300px;
@@ -1321,16 +1279,15 @@ main {
 
   z-index: 2;
 
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
   display: flex;
 
   flex-direction: column;
 
   gap: 7px;
-
-  width: 100%;
-  max-width: 100%;
-
-  min-width: 0;
 
   padding: 16px;
 }
@@ -1368,10 +1325,12 @@ main {
 
   margin-top: 3px;
 
-  max-width: 100%;
+  min-width: 0;
 }
 
 .watched-ratings span {
+  max-width: 100%;
+
   padding: 4px 6px;
 
   border-radius: 4px;
@@ -1467,6 +1426,10 @@ main {
 
   justify-content: center;
 
+  padding: 20px;
+
+  text-align: center;
+
   border:
     1px solid var(--border);
 
@@ -1478,8 +1441,6 @@ main {
     rgba(255, 255, 255, 0.025);
 
   font-size: 13px;
-
-  text-align: center;
 }
 
 /* =========================================================
@@ -1559,23 +1520,22 @@ main {
   width: 100%;
   max-width: 100%;
 
-  overflow: hidden;
-
   border-top:
     1px solid rgba(255, 255, 255, 0.06);
 
   padding:
     26px 0 35px;
+
+  overflow: hidden;
 }
 
 .footer-inner {
-  width:
-    min(
-      calc(100% - 48px),
-      var(--max-width)
-    );
+  width: min(
+    calc(100% - 48px),
+    var(--max-width)
+  );
 
-  max-width: 100%;
+  max-width: var(--max-width);
 
   margin: auto;
 
@@ -1590,14 +1550,6 @@ main {
   color: var(--gray-4);
 
   font-size: 10px;
-
-  min-width: 0;
-}
-
-.footer-inner span {
-  max-width: 100%;
-
-  overflow-wrap: anywhere;
 }
 
 /* =========================================================
@@ -1605,6 +1557,7 @@ main {
 ========================================================= */
 
 @media (max-width: 1050px) {
+
   #watched-movies {
     grid-template-columns:
       repeat(
@@ -1631,41 +1584,42 @@ main {
 ========================================================= */
 
 @media (max-width: 760px) {
+
   html,
   body {
     width: 100%;
     max-width: 100%;
 
     overflow-x: hidden !important;
-    overscroll-behavior-x: none;
   }
 
   .topbar {
     width: 100%;
-    max-width: 100%;
-
     height: 60px;
   }
 
-  .topbar-inner,
-  main,
-  .footer-inner {
-    width:
-      calc(100% - 32px);
-
-    max-width:
-      calc(100% - 32px);
-
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
   .topbar-inner {
-    min-width: 0;
+    width: calc(100% - 32px);
+    max-width: none;
+
+    margin:
+      0 16px;
   }
 
-  .brand {
-    min-width: 0;
+  main {
+    width: calc(100% - 32px);
+    max-width: none;
+
+    margin:
+      0 16px;
+  }
+
+  .footer-inner {
+    width: calc(100% - 32px);
+    max-width: none;
+
+    margin:
+      0 16px;
   }
 
   .brand-name {
@@ -1676,21 +1630,11 @@ main {
     display: none;
   }
 
-  .profile-area {
-    min-width: 0;
-  }
-
   .current-user {
-    max-width: 100px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 90px;
   }
 
-  /* =====================================================
-     HERO MOBILE
-  ===================================================== */
+  /* HERO */
 
   .hero {
     width: 100%;
@@ -1705,18 +1649,9 @@ main {
     overflow: hidden;
   }
 
-  .hero::before {
-    left: -60vw;
-
-    width: 700px;
-    max-width: 150vw;
-  }
-
   .hero-copy {
     width: 100%;
     max-width: 100%;
-
-    min-width: 0;
 
     padding-top: 50px;
   }
@@ -1733,8 +1668,6 @@ main {
       );
 
     letter-spacing: -4px;
-
-    overflow-wrap: break-word;
   }
 
   .hero-description {
@@ -1744,8 +1677,6 @@ main {
     margin-top: 20px;
 
     font-size: 14px;
-
-    overflow-wrap: break-word;
   }
 
   .primary-button {
@@ -1755,9 +1686,7 @@ main {
     margin-top: 23px;
   }
 
-  /* =====================================================
-     RESULT MOBILE
-  ===================================================== */
+  /* RESULT */
 
   .result-section {
     width: 100%;
@@ -1768,39 +1697,20 @@ main {
     overflow: hidden;
   }
 
-  #movie-result {
-    width: 100%;
-    max-width: 100%;
-
-    min-width: 0;
-  }
-
-  .empty-result {
-    width: 100%;
-    max-width: 100%;
-
-    padding:
-      60px 16px;
-  }
-
   .movie-card-featured {
     width: 100%;
     max-width: 100%;
 
-    min-width: 0;
-
     padding: 20px;
 
     border-radius: 15px;
-
-    overflow: hidden;
   }
 
   .movie-featured-layout {
     width: 100%;
     max-width: 100%;
 
-    min-width: 0;
+    display: grid;
 
     grid-template-columns: 1fr;
 
@@ -1822,8 +1732,6 @@ main {
   .movie-featured-info {
     width: 100%;
     max-width: 100%;
-
-    min-width: 0;
 
     align-items: stretch;
   }
@@ -1848,21 +1756,15 @@ main {
     justify-content: center;
   }
 
+  /* RATINGS */
+
   .ratings-section,
   .your-rating {
     width: 100%;
     max-width: 100%;
-
-    min-width: 0;
   }
 
-  .rating-row {
-    min-width: 0;
-  }
-
-  /* =====================================================
-     STATS MOBILE
-  ===================================================== */
+  /* STATS */
 
   .stats-section {
     width: 100%;
@@ -1873,13 +1775,6 @@ main {
 
     padding:
       18px 0;
-
-    overflow: hidden;
-  }
-
-  .stat-item {
-    min-width: 0;
-    max-width: 100%;
   }
 
   .stat-number {
@@ -1887,16 +1782,12 @@ main {
   }
 
   .stat-label {
-    max-width: 100%;
-
     font-size: 7px;
 
     letter-spacing: 1px;
   }
 
-  /* =====================================================
-     WATCHED MOBILE
-  ===================================================== */
+  /* WATCHED */
 
   .watched-section {
     width: 100%;
@@ -1909,7 +1800,7 @@ main {
     width: 100%;
     max-width: 100%;
 
-    min-width: 0;
+    gap: 10px;
   }
 
   .section-heading h2 {
@@ -1920,8 +1811,6 @@ main {
     width: 100%;
     max-width: 100%;
 
-    min-width: 0;
-
     grid-template-columns:
       repeat(
         2,
@@ -1930,14 +1819,12 @@ main {
 
     gap: 10px;
 
-    overflow: hidden;
+    overflow: visible;
   }
 
   .watched-card {
     width: 100%;
     max-width: 100%;
-
-    min-width: 0;
 
     min-height: 275px;
 
@@ -1948,19 +1835,11 @@ main {
     width: 100%;
     max-width: 100%;
 
-    min-width: 0;
-
     padding: 12px;
   }
 
   .watched-card-content h3 {
-    width: 100%;
-    max-width: 100%;
-
     font-size: 12px;
-
-    overflow-wrap: anywhere;
-    word-break: break-word;
   }
 
   .watched-ratings span {
@@ -1974,16 +1853,7 @@ main {
       translateY(0);
   }
 
-  /* =====================================================
-     FOOTER MOBILE
-  ===================================================== */
-
-  .footer {
-    width: 100%;
-    max-width: 100%;
-
-    overflow: hidden;
-  }
+  /* FOOTER */
 
   .footer-inner {
     flex-direction: column;
@@ -1999,17 +1869,18 @@ main {
 ========================================================= */
 
 @media (max-width: 420px) {
+
   .topbar-inner,
   main,
   .footer-inner {
-    width:
-      calc(100% - 24px);
-
-    max-width:
-      calc(100% - 24px);
+    width: calc(100% - 24px);
 
     margin-left: 12px;
     margin-right: 12px;
+  }
+
+  .current-user {
+    max-width: 75px;
   }
 
   .hero h1 {
@@ -2037,54 +1908,53 @@ main {
   .watched-card-content {
     padding: 10px;
   }
+
+  .watched-card-content h3 {
+    font-size: 11px;
+  }
+
+  .section-heading h2 {
+    font-size: 23px;
+  }
 }
 
 /* =========================================================
    SAFETY AGAINST HORIZONTAL OVERFLOW
-   Especial para Safari / iPhone
 ========================================================= */
 
 @media (max-width: 760px) {
-  *,
-  *::before,
-  *::after {
+
+  .hero *,
+  .result-section *,
+  .stats-section *,
+  .watched-section *,
+  .footer * {
     max-width: 100%;
   }
 
-  main,
-  section,
-  article,
-  header,
-  footer,
-  div {
+  .hero h1,
+  .movie-featured-info h2,
+  .watched-card-content h3,
+  .movie-status,
+  .movie-year,
+  .letterboxd-button,
+  .card-letterboxd {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .movie-featured-layout,
+  .movie-featured-info,
+  .ratings-section,
+  .your-rating,
+  .watched-card-content {
     min-width: 0;
   }
 
-  img,
-  video,
-  svg,
-  canvas,
-  iframe {
-    max-width: 100% !important;
-  }
-
-  input,
   select,
-  textarea,
-  button {
+  button,
+  img {
     max-width: 100%;
-  }
-
-  pre,
-  code {
-    max-width: 100%;
-    overflow-x: auto;
-  }
-
-  a {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
   }
 }
 
@@ -2093,6 +1963,7 @@ main {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
