@@ -1628,87 +1628,111 @@ function renderWheel() {
     return;
   }
 
-  const snacks =
-    getSelectedSnacks();
+  const snacks = getSelectedSnacks();
 
+  // Limpiar textos anteriores
   snackWheel
-    .querySelectorAll(
-      ".wheel-item"
-    )
-    .forEach(
-      element =>
-        element.remove()
-    );
+    .querySelectorAll(".wheel-item")
+    .forEach(element => element.remove());
 
+  // Si no hay snacks
   if (snacks.length === 0) {
 
-    snackWheel.style.setProperty(
-      "--wheel-colors",
-      "#e8e3da 0deg 360deg"
-    );
+    snackWheel.style.background =
+      "#e8e3da";
 
     return;
   }
 
+  // ===================================================
+  // PALETA CINEMATCH
+  // ===================================================
+
   const colors = [
-    "#f6d7d7",
-    "#d8e5f5",
-    "#f4e4b8",
-    "#d8eadb",
-    "#e4d9ef",
-    "#f3d8b8",
-    "#d6e9e7",
-    "#ead8e1"
+    "#E8D8D8", // rosa empolvado
+    "#D8E2ED", // azul grisáceo
+    "#E9E1CC", // beige
+    "#D9E5DC", // verde salvia
+    "#E3D9E8", // lavanda
+    "#E8D9C8", // durazno suave
+    "#D7E3E1", // verde agua
+    "#E5D8DE"  // rosa grisáceo
   ];
 
   const sliceAngle =
     360 / snacks.length;
 
-  const gradientParts =
-    snacks.map(
-      (_, index) => {
+  // ===================================================
+  // GRADIENTE DE LA RULETA
+  // ===================================================
 
-        const start =
-          index * sliceAngle;
+  const gradientParts = snacks.map(
+    (_, index) => {
 
-        const end =
-          (index + 1) *
-          sliceAngle;
+      const start =
+        index * sliceAngle;
 
-        const color =
-          colors[
-            index % colors.length
-          ];
+      const end =
+        (index + 1) * sliceAngle;
 
-        return `
-          ${color}
-          ${start}deg
-          ${end}deg
-        `;
+      const color =
+        colors[index % colors.length];
 
-      }
-    );
-
-  snackWheel.style.setProperty(
-    "--wheel-colors",
-    gradientParts.join(",")
+      return `${color} ${start}deg ${end}deg`;
+    }
   );
+
+  snackWheel.style.background =
+    `conic-gradient(${gradientParts.join(", ")})`;
+
+  // ===================================================
+  // TEXTO DE CADA SECTOR
+  // ===================================================
 
   snacks.forEach(
     (snack, index) => {
 
       const item =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
       item.className =
         "wheel-item";
 
+      // Ángulo del centro del sector
       const angle =
         index * sliceAngle +
         sliceAngle / 2 -
         90;
+
+      // =================================================
+      // POSICIÓN
+      // =================================================
+
+      // Radio desde el centro de la rueda.
+      // Ajustalo si después queremos que el texto
+      // esté más cerca o más lejos del borde.
+      const radius = 115;
+
+      const angleInRadians =
+        angle * Math.PI / 180;
+
+      const x =
+        Math.cos(angleInRadians) * radius;
+
+      const y =
+        Math.sin(angleInRadians) * radius;
+
+      item.style.left =
+        `calc(50% + ${x}px)`;
+
+      item.style.top =
+        `calc(50% + ${y}px)`;
+
+      // MUY IMPORTANTE:
+      // No rotamos el texto.
+      // Así siempre queda horizontal y centrado.
+      item.style.transform =
+        "translate(-50%, -50%)";
 
       item.innerHTML = `
         <span class="wheel-item-emoji">
@@ -1720,20 +1744,9 @@ function renderWheel() {
         </span>
       `;
 
-      item.style.transform = `
-        translate(-50%, -50%)
-        rotate(${angle}deg)
-        translateY(-135px)
-        rotate(${-angle}deg)
-      `;
-
-      snackWheel.appendChild(
-        item
-      );
-
+      snackWheel.appendChild(item);
     }
   );
-
 }
 
 // =====================================================
