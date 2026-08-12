@@ -1,0 +1,1615 @@
+/* =========================================================
+   CINEMATCH
+   APPLE-INSPIRED × NETFLIX COLORS
+   ========================================================= */
+
+:root {
+  --black: #000000;
+  --background: #050505;
+  --surface: #0c0c0c;
+  --surface-soft: #111111;
+
+  --white: #ffffff;
+  --text: #f5f5f7;
+
+  --gray-1: #d2d2d7;
+  --gray-2: #a1a1a6;
+  --gray-3: #6e6e73;
+  --gray-4: #3a3a3c;
+
+  --netflix-red: #e50914;
+  --netflix-red-light: #f6121d;
+
+  --border: rgba(255, 255, 255, 0.09);
+
+  --max-width: 1180px;
+
+  --radius-small: 8px;
+  --radius-medium: 14px;
+  --radius-large: 20px;
+
+  --transition: 220ms cubic-bezier(.2, .7, .2, 1);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      ellipse 70% 45% at 50% -10%,
+      rgba(229, 9, 20, 0.10),
+      transparent 70%
+    ),
+    var(--background);
+
+  color: var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+
+  line-height: 1.45;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: var(--netflix-red);
+  color: white;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #292929;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  height: 68px;
+
+  background:
+    rgba(5, 5, 5, 0.82);
+
+  backdrop-filter:
+    blur(24px)
+    saturate(150%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(150%);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar-inner {
+  width:
+    min(
+      calc(100% - 48px),
+      var(--max-width)
+    );
+
+  height: 100%;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 8px;
+
+  background: var(--netflix-red);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  box-shadow:
+    0 4px 18px rgba(229, 9, 20, 0.25);
+}
+
+.brand-name {
+  font-size: 17px;
+  color: var(--white);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.main-nav {
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  position: relative;
+
+  color: var(--gray-3);
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition:
+    color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--white);
+}
+
+.nav-link.active {
+  color: var(--white);
+}
+
+.nav-link.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -9px;
+
+  width: 4px;
+  height: 4px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: var(--netflix-red);
+}
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.current-user {
+  color: var(--gray-2);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.profile-button {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.profile-button:hover {
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  transform: scale(1.05);
+}
+
+.profile-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background:
+    var(--netflix-red);
+
+  box-shadow:
+    0 0 12px
+    rgba(229, 9, 20, 0.6);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+main {
+  width:
+    min(
+      calc(100% - 48px),
+      var(--max-width)
+    );
+
+  margin: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  min-height: 560px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  overflow: visible;
+}
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+  pointer-events: none;
+
+  left: -20vw;
+  top: -150px;
+
+  width: 800px;
+  height: 600px;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(229, 9, 20, 0.11),
+      transparent 68%
+    );
+
+  filter: blur(10px);
+
+  z-index: -1;
+}
+
+.hero-copy {
+  max-width: 700px;
+  padding-top: 35px;
+}
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  color:
+    var(--netflix-red);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 2.4px;
+}
+
+.hero h1 {
+  margin: 0;
+
+  color: var(--white);
+
+  font-size:
+    clamp(
+      62px,
+      9vw,
+      108px
+    );
+
+  line-height: 0.91;
+
+  font-weight: 800;
+
+  letter-spacing:
+    -6px;
+}
+
+.hero-description {
+  max-width: 490px;
+
+  margin: 28px 0 0;
+
+  color: var(--gray-2);
+
+  font-size: 16px;
+
+  line-height: 1.65;
+}
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.primary-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 48px;
+
+  margin-top: 28px;
+
+  padding: 0 23px;
+
+  border-radius: 10px;
+
+  background:
+    var(--netflix-red);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow:
+    0 8px 28px
+    rgba(229, 9, 20, 0.18);
+
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.primary-button:hover {
+  background:
+    var(--netflix-red-light);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 12px 35px
+    rgba(229, 9, 20, 0.28);
+}
+
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.play-icon {
+  font-size: 11px;
+}
+
+/* =========================================================
+   MOVIE RESULT
+   ========================================================= */
+
+.result-section {
+  position: relative;
+  margin-top: -35px;
+}
+
+#movie-result {
+  width: 100%;
+}
+
+/* =========================================================
+   EMPTY RESULT
+   ========================================================= */
+
+.empty-result {
+  padding:
+    72px 30px;
+
+  text-align: center;
+
+  border-top:
+    1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+}
+
+.empty-result-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  font-size: 23px;
+}
+
+.empty-result h2 {
+  margin: 0;
+
+  font-size: 25px;
+
+  letter-spacing: -0.8px;
+}
+
+.empty-result p {
+  max-width: 430px;
+
+  margin:
+    10px auto 0;
+
+  color: var(--gray-3);
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   FEATURED MOVIE CARD
+   ========================================================= */
+
+.movie-card-featured {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 34px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius-large);
+
+  background:
+    linear-gradient(
+      135deg,
+      #151515,
+      #090909
+    );
+
+  box-shadow:
+    0 30px 80px
+    rgba(0, 0, 0, 0.42);
+
+  animation:
+    movieAppear 500ms
+    cubic-bezier(.2, .7, .2, 1);
+}
+
+@keyframes movieAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(16px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.movie-featured-layout {
+  display: grid;
+
+  grid-template-columns:
+    245px
+    minmax(0, 1fr);
+
+  gap: 42px;
+
+  align-items: center;
+}
+
+.movie-featured-poster {
+  width: 245px;
+  flex-shrink: 0;
+}
+
+.movie-poster-large {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+
+  border-radius: 11px;
+
+  box-shadow:
+    0 25px 55px
+    rgba(0, 0, 0, 0.58);
+
+  transition:
+    transform 400ms
+    cubic-bezier(.2, .7, .2, 1);
+}
+
+.movie-featured-poster:hover .movie-poster-large {
+  transform:
+    scale(1.025);
+}
+
+.movie-featured-info {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 11px;
+}
+
+.movie-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 25px;
+
+  padding: 0 9px;
+
+  border-radius: 5px;
+
+  background:
+    rgba(229, 9, 20, 0.13);
+
+  color:
+    #ff3b44;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.movie-featured-info h2 {
+  margin: 5px 0 0;
+
+  font-size:
+    clamp(
+      34px,
+      5vw,
+      62px
+    );
+
+  line-height: 0.98;
+
+  letter-spacing: -3px;
+}
+
+.movie-year {
+  margin: 0;
+
+  color: var(--gray-3);
+
+  font-size: 14px;
+}
+
+.movie-status {
+  margin: 8px 0 5px;
+
+  color: var(--gray-2);
+
+  font-size: 13px;
+}
+
+.movie-status strong {
+  margin-left: 5px;
+
+  color: white;
+}
+
+.already-watched {
+  display: inline-flex;
+
+  padding: 8px 11px;
+
+  border-radius: 6px;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color: var(--gray-1);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   MOVIE ACTION BUTTONS
+   ========================================================= */
+
+.movie-featured-info > button {
+  min-height: 44px;
+
+  margin-top: 3px;
+
+  padding: 0 20px;
+
+  border-radius: 9px;
+
+  background: white;
+
+  color: black;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition:
+    transform var(--transition),
+    background var(--transition);
+}
+
+.movie-featured-info > button:hover {
+  background: #e8e8ed;
+
+  transform:
+    translateY(-1px);
+}
+
+.letterboxd-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 40px;
+
+  padding: 0 15px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 8px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  color: var(--gray-1);
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.letterboxd-button:hover {
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+}
+
+/* =========================================================
+   FEATURED DIVIDERS
+   ========================================================= */
+
+.movie-card-featured hr {
+  margin:
+    30px 0;
+
+  border: 0;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* =========================================================
+   RATINGS
+   ========================================================= */
+
+.ratings-section {
+  max-width: 480px;
+}
+
+.ratings-section h3,
+.your-rating h3 {
+  margin: 0 0 14px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.rating-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  min-height: 42px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.05);
+
+  color: var(--gray-2);
+
+  font-size: 13px;
+}
+
+.rating-row strong {
+  color: white;
+}
+
+.average-rating {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: 12px;
+
+  padding: 12px 14px;
+
+  border:
+    1px solid
+    rgba(229, 9, 20, 0.16);
+
+  border-radius: 8px;
+
+  background:
+    rgba(229, 9, 20, 0.07);
+
+  font-size: 13px;
+}
+
+.average-rating strong {
+  color: white;
+
+  font-size: 16px;
+}
+
+/* =========================================================
+   RATING FORM
+   ========================================================= */
+
+.your-rating {
+  max-width: 360px;
+}
+
+.your-rating select {
+  width: 100%;
+
+  height: 42px;
+
+  margin-bottom: 10px;
+
+  padding: 0 12px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background:
+    #161616;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+#save-rating-button {
+  width: 100%;
+
+  min-height: 42px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 8px;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  transition:
+    background var(--transition);
+}
+
+#save-rating-button:hover {
+  background:
+    rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-section {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1px
+    1fr
+    1px
+    1fr;
+
+  align-items: center;
+
+  margin:
+    70px 0;
+
+  padding:
+    20px 0;
+
+  border-top:
+    1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+}
+
+.stat-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.stat-number {
+  color: white;
+
+  font-size: 29px;
+
+  font-weight: 700;
+
+  letter-spacing: -1px;
+}
+
+.stat-label {
+  color: var(--gray-3);
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.6px;
+
+  text-transform: uppercase;
+}
+
+.stat-symbol {
+  color:
+    var(--netflix-red);
+
+  font-size: 26px;
+
+  line-height: 1;
+}
+
+.stat-divider {
+  width: 1px;
+
+  height: 32px;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+}
+
+/* =========================================================
+   WATCHED SECTION
+   ========================================================= */
+
+.watched-section {
+  padding-bottom: 90px;
+}
+
+.section-heading {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.section-eyebrow {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color:
+    var(--netflix-red);
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  letter-spacing: -1.4px;
+}
+
+.section-count {
+  color: var(--gray-3);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   WATCHED GRID
+   ========================================================= */
+
+#watched-movies {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(0, 1fr)
+    );
+
+  gap: 18px;
+}
+
+.watched-card {
+  position: relative;
+
+  min-height: 300px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.06);
+
+  background-color:
+    #151515;
+
+  background-size: cover;
+
+  background-position: center;
+
+  transition:
+    transform 300ms
+    cubic-bezier(.2, .7, .2, 1),
+    box-shadow 300ms
+    cubic-bezier(.2, .7, .2, 1);
+}
+
+.watched-card:hover {
+  z-index: 4;
+
+  transform:
+    translateY(-6px)
+    scale(1.015);
+
+  box-shadow:
+    0 24px 50px
+    rgba(0, 0, 0, 0.55);
+}
+
+.watched-card-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.98) 0%,
+      rgba(0, 0, 0, 0.82) 26%,
+      rgba(0, 0, 0, 0.04) 72%
+    );
+}
+
+.watched-card-content {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 2;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  padding: 16px;
+}
+
+.watched-card-content h3 {
+  margin: 0;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.watched-card-content p {
+  margin: 0;
+
+  color: var(--gray-2);
+
+  font-size: 11px;
+}
+
+.watched-ratings {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  margin-top: 3px;
+}
+
+.watched-ratings span {
+  padding: 4px 6px;
+
+  border-radius: 4px;
+
+  background:
+    rgba(0, 0, 0, 0.72);
+
+  color: var(--gray-1);
+
+  font-size: 9px;
+}
+
+.card-average {
+  color: white !important;
+
+  font-weight: 700;
+}
+
+.rate-movie-button {
+  width: 100%;
+
+  min-height: 33px;
+
+  margin-top: 4px;
+
+  border-radius: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  color: black;
+
+  cursor: pointer;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  opacity: 0;
+
+  transform:
+    translateY(5px);
+
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+
+.watched-card:hover .rate-movie-button {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+.card-letterboxd {
+  color:
+    rgba(255, 255, 255, 0.6);
+
+  font-size: 9px;
+
+  text-align: center;
+
+  transition:
+    color var(--transition);
+}
+
+.card-letterboxd:hover {
+  color: white;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading-card {
+  grid-column:
+    1 / -1;
+
+  min-height: 120px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 12px;
+
+  color: var(--gray-3);
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   USER SELECTOR
+   ========================================================= */
+
+.user-selector {
+  max-width: 600px;
+
+  margin: auto;
+
+  padding: 55px 30px;
+
+  text-align: center;
+
+  border-top:
+    1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+}
+
+.user-selector h2 {
+  margin: 0;
+
+  font-size: 32px;
+
+  letter-spacing: -1.2px;
+}
+
+.user-selector p {
+  margin:
+    12px auto 26px;
+
+  color: var(--gray-3);
+
+  font-size: 13px;
+}
+
+.user-selector button {
+  min-height: 44px;
+
+  margin: 4px;
+
+  padding: 0 20px;
+
+  border-radius: 9px;
+
+  background: white;
+
+  color: black;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  transition:
+    transform var(--transition),
+    background var(--transition);
+}
+
+.user-selector button:hover {
+  background: #e5e5ea;
+
+  transform:
+    translateY(-1px);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  border-top:
+    1px solid rgba(255, 255, 255, 0.06);
+
+  padding:
+    26px 0 35px;
+}
+
+.footer-inner {
+  width:
+    min(
+      calc(100% - 48px),
+      var(--max-width)
+    );
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  color: var(--gray-4);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  #watched-movies {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .movie-featured-layout {
+    grid-template-columns:
+      210px
+      minmax(0, 1fr);
+
+    gap: 32px;
+  }
+
+  .movie-featured-poster {
+    width: 210px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .topbar {
+    height: 60px;
+  }
+
+  .topbar-inner,
+  main,
+  .footer-inner {
+    width:
+      calc(100% - 32px);
+  }
+
+  .brand-name {
+    font-size: 15px;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .current-user {
+    max-width: 100px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .hero {
+    min-height: 480px;
+
+    align-items: flex-end;
+
+    padding-bottom: 50px;
+  }
+
+  .hero-copy {
+    padding-top: 50px;
+  }
+
+  .hero h1 {
+    font-size:
+      clamp(
+        54px,
+        16vw,
+        76px
+      );
+
+    letter-spacing: -4px;
+  }
+
+  .hero-description {
+    max-width: 360px;
+
+    margin-top: 20px;
+
+    font-size: 14px;
+  }
+
+  .primary-button {
+    width: 100%;
+
+    margin-top: 23px;
+  }
+
+  .result-section {
+    margin-top: 0;
+  }
+
+  .movie-card-featured {
+    padding: 20px;
+
+    border-radius: 15px;
+  }
+
+  .movie-featured-layout {
+    grid-template-columns: 1fr;
+
+    gap: 26px;
+  }
+
+  .movie-featured-poster {
+    width:
+      min(
+        220px,
+        65vw
+      );
+
+    margin: auto;
+  }
+
+  .movie-featured-info {
+    align-items: stretch;
+  }
+
+  .movie-featured-info h2 {
+    font-size: 38px;
+
+    letter-spacing: -2px;
+  }
+
+  .movie-featured-info > button,
+  .letterboxd-button {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .stats-section {
+    margin:
+      50px 0;
+
+    padding:
+      18px 0;
+  }
+
+  .stat-number {
+    font-size: 23px;
+  }
+
+  .stat-label {
+    font-size: 7px;
+
+    letter-spacing: 1px;
+  }
+
+  .section-heading h2 {
+    font-size: 25px;
+  }
+
+  #watched-movies {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .watched-card {
+    min-height: 275px;
+
+    border-radius: 8px;
+  }
+
+  .watched-card-content {
+    padding: 12px;
+  }
+
+  .watched-card-content h3 {
+    font-size: 12px;
+  }
+
+  .watched-ratings span {
+    font-size: 8px;
+  }
+
+  .rate-movie-button {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 7px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .movie-featured-info h2 {
+    font-size: 34px;
+  }
+
+  #watched-movies {
+    gap: 8px;
+  }
+
+  .watched-card {
+    min-height: 250px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration:
+      0.01ms !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
