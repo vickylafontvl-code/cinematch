@@ -607,7 +607,7 @@ async function showMovie() {
 
         <div class="rating-row">
           <span>
-            💙 Axel
+            🧑🏽‍🦱 Axel
           </span>
 
           <strong>
