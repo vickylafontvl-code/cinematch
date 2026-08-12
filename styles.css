@@ -1,7 +1,7 @@
 /* =========================================================
    CINEMATCH
    APPLE-INSPIRED × NETFLIX COLORS
-========================================================= */
+   ========================================================= */
 
 :root {
   --black: #000000;
@@ -33,7 +33,7 @@
 
 /* =========================================================
    RESET
-========================================================= */
+   ========================================================= */
 
 *,
 *::before,
@@ -42,21 +42,22 @@
 }
 
 html {
-  width: 100%;
-  max-width: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   overflow-x: hidden;
+  background: var(--background);
   scroll-behavior: smooth;
 }
 
 body {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
   margin: 0;
   padding: 0;
-
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   overflow-x: hidden;
 
   background:
@@ -82,13 +83,16 @@ body {
   line-height: 1.45;
 }
 
-main,
-header,
-footer,
-section,
-div,
-article {
-  min-width: 0;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  box-sizing: border-box;
+}
+
+button {
+  border: 0;
 }
 
 img,
@@ -100,21 +104,11 @@ iframe {
   max-width: 100%;
 }
 
-button,
-input,
-select {
-  font: inherit;
-  max-width: 100%;
-}
-
-button {
-  border: 0;
-}
-
 a {
   color: inherit;
   text-decoration: none;
   max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -124,7 +118,7 @@ a {
 
 /* =========================================================
    SCROLLBAR
-========================================================= */
+   ========================================================= */
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -145,7 +139,7 @@ a {
 
 /* =========================================================
    TOP BAR
-========================================================= */
+   ========================================================= */
 
 .topbar {
   position: sticky;
@@ -157,28 +151,20 @@ a {
 
   height: 68px;
 
-  background:
-    rgba(5, 5, 5, 0.82);
+  background: rgba(5, 5, 5, 0.82);
 
-  backdrop-filter:
-    blur(24px)
-    saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
 
-  -webkit-backdrop-filter:
-    blur(24px)
-    saturate(150%);
-
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .topbar-inner {
-  width: min(
-    calc(100% - 48px),
-    var(--max-width)
-  );
+  width: min(calc(100% - 48px), var(--max-width));
+  max-width: var(--max-width);
 
   height: 100%;
+
   margin: 0 auto;
 
   display: flex;
@@ -190,7 +176,7 @@ a {
 
 /* =========================================================
    BRAND
-========================================================= */
+   ========================================================= */
 
 .brand {
   display: flex;
@@ -208,7 +194,7 @@ a {
   align-items: center;
   justify-content: center;
 
-  flex-shrink: 0;
+  flex: 0 0 auto;
 
   width: 27px;
   height: 27px;
@@ -226,15 +212,13 @@ a {
 }
 
 .brand-name {
-  min-width: 0;
-
   font-size: 17px;
   color: var(--white);
 }
 
 /* =========================================================
    NAVIGATION
-========================================================= */
+   ========================================================= */
 
 .main-nav {
   position: absolute;
@@ -245,6 +229,8 @@ a {
   display: flex;
   align-items: center;
   gap: 30px;
+
+  white-space: nowrap;
 }
 
 .nav-link {
@@ -255,10 +241,7 @@ a {
   font-size: 13px;
   font-weight: 500;
 
-  white-space: nowrap;
-
-  transition:
-    color var(--transition);
+  transition: color var(--transition);
 }
 
 .nav-link:hover {
@@ -289,7 +272,7 @@ a {
 
 /* =========================================================
    PROFILE
-========================================================= */
+   ========================================================= */
 
 .profile-area {
   display: flex;
@@ -300,7 +283,7 @@ a {
 }
 
 .current-user {
-  max-width: 120px;
+  max-width: 160px;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -313,7 +296,7 @@ a {
 }
 
 .profile-button {
-  flex-shrink: 0;
+  flex: 0 0 auto;
 
   width: 31px;
   height: 31px;
@@ -328,8 +311,7 @@ a {
 
   border-radius: 50%;
 
-  background:
-    rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
 
   transition:
     background var(--transition),
@@ -337,9 +319,7 @@ a {
 }
 
 .profile-button:hover {
-  background:
-    rgba(255, 255, 255, 0.14);
-
+  background: rgba(255, 255, 255, 0.14);
   transform: scale(1.05);
 }
 
@@ -349,24 +329,18 @@ a {
 
   border-radius: 50%;
 
-  background:
-    var(--netflix-red);
+  background: var(--netflix-red);
 
   box-shadow:
-    0 0 12px
-    rgba(229, 9, 20, 0.6);
+    0 0 12px rgba(229, 9, 20, 0.6);
 }
 
 /* =========================================================
    MAIN
-========================================================= */
+   ========================================================= */
 
 main {
-  width: min(
-    calc(100% - 48px),
-    var(--max-width)
-  );
-
+  width: min(calc(100% - 48px), var(--max-width));
   max-width: var(--max-width);
 
   margin: 0 auto;
@@ -376,7 +350,7 @@ main {
 
 /* =========================================================
    HERO
-========================================================= */
+   ========================================================= */
 
 .hero {
   min-height: 560px;
@@ -386,7 +360,7 @@ main {
 
   position: relative;
 
-  overflow: hidden;
+  min-width: 0;
 }
 
 .hero::before {
@@ -399,9 +373,9 @@ main {
   top: -150px;
 
   width: 800px;
-  height: 600px;
-
   max-width: 100vw;
+
+  height: 600px;
 
   background:
     radial-gradient(
@@ -429,8 +403,7 @@ main {
 
   margin-bottom: 18px;
 
-  color:
-    var(--netflix-red);
+  color: var(--netflix-red);
 
   font-size: 11px;
   font-weight: 700;
@@ -439,25 +412,19 @@ main {
 }
 
 .hero h1 {
-  max-width: 100%;
-
   margin: 0;
+
+  max-width: 100%;
 
   color: var(--white);
 
-  font-size:
-    clamp(
-      62px,
-      9vw,
-      108px
-    );
+  font-size: clamp(62px, 9vw, 108px);
 
   line-height: 0.91;
 
   font-weight: 800;
 
-  letter-spacing:
-    -6px;
+  letter-spacing: -6px;
 
   overflow-wrap: break-word;
 }
@@ -477,7 +444,7 @@ main {
 
 /* =========================================================
    PRIMARY BUTTON
-========================================================= */
+   ========================================================= */
 
 .primary-button {
   display: inline-flex;
@@ -495,8 +462,7 @@ main {
 
   border-radius: 10px;
 
-  background:
-    var(--netflix-red);
+  background: var(--netflix-red);
 
   color: white;
 
@@ -505,6 +471,9 @@ main {
   font-size: 14px;
   font-weight: 700;
 
+  box-shadow:
+    0 8px 28px rgba(229, 9, 20, 0.18);
+
   transition:
     background var(--transition),
     transform var(--transition),
@@ -512,15 +481,12 @@ main {
 }
 
 .primary-button:hover {
-  background:
-    var(--netflix-red-light);
+  background: var(--netflix-red-light);
 
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 
   box-shadow:
-    0 12px 35px
-    rgba(229, 9, 20, 0.28);
+    0 12px 35px rgba(229, 9, 20, 0.28);
 }
 
 .primary-button:active {
@@ -533,43 +499,35 @@ main {
 
 /* =========================================================
    MOVIE RESULT
-========================================================= */
+   ========================================================= */
 
 .result-section {
   position: relative;
 
   width: 100%;
-  max-width: 100%;
+  min-width: 0;
 
   margin-top: -35px;
-
-  min-width: 0;
 }
 
 #movie-result {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 }
 
 /* =========================================================
    EMPTY RESULT
-========================================================= */
+   ========================================================= */
 
 .empty-result {
   width: 100%;
-  max-width: 100%;
 
-  padding:
-    72px 30px;
+  padding: 72px 30px;
 
   text-align: center;
 
-  border-top:
-    1px solid var(--border);
-
-  border-bottom:
-    1px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .empty-result-icon {
@@ -585,8 +543,7 @@ main {
 
   border-radius: 50%;
 
-  background:
-    rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
 
   font-size: 23px;
 }
@@ -602,8 +559,7 @@ main {
 .empty-result p {
   max-width: 430px;
 
-  margin:
-    10px auto 0;
+  margin: 10px auto 0;
 
   color: var(--gray-3);
 
@@ -612,24 +568,20 @@ main {
 
 /* =========================================================
    FEATURED MOVIE CARD
-========================================================= */
+   ========================================================= */
 
 .movie-card-featured {
   position: relative;
 
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   overflow: hidden;
 
   padding: 34px;
 
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    var(--radius-large);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
 
   background:
     linear-gradient(
@@ -639,18 +591,15 @@ main {
     );
 
   box-shadow:
-    0 30px 80px
-    rgba(0, 0, 0, 0.42);
+    0 30px 80px rgba(0, 0, 0, 0.42);
 
   animation:
-    movieAppear 500ms
-    cubic-bezier(.2, .7, .2, 1);
+    movieAppear 500ms cubic-bezier(.2, .7, .2, 1);
 }
 
 @keyframes movieAppear {
   from {
     opacity: 0;
-
     transform:
       translateY(16px)
       scale(0.985);
@@ -658,7 +607,6 @@ main {
 
   to {
     opacity: 1;
-
     transform:
       translateY(0)
       scale(1);
@@ -667,7 +615,6 @@ main {
 
 .movie-featured-layout {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   display: grid;
@@ -688,6 +635,8 @@ main {
   flex-shrink: 0;
 
   min-width: 0;
+
+  margin: 0 auto;
 }
 
 .movie-poster-large {
@@ -703,24 +652,17 @@ main {
   border-radius: 11px;
 
   box-shadow:
-    0 25px 55px
-    rgba(0, 0, 0, 0.58);
+    0 25px 55px rgba(0, 0, 0, 0.58);
 
   transition:
-    transform 400ms
-    cubic-bezier(.2, .7, .2, 1);
+    transform 400ms cubic-bezier(.2, .7, .2, 1);
 }
 
 .movie-featured-poster:hover .movie-poster-large {
-  transform:
-    scale(1.025);
+  transform: scale(1.025);
 }
 
 .movie-featured-info {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-
   display: flex;
 
   flex-direction: column;
@@ -728,6 +670,8 @@ main {
   align-items: flex-start;
 
   gap: 11px;
+
+  min-width: 0;
 }
 
 .movie-badge {
@@ -746,8 +690,7 @@ main {
   background:
     rgba(229, 9, 20, 0.13);
 
-  color:
-    #ff3b44;
+  color: #ff3b44;
 
   font-size: 9px;
 
@@ -762,19 +705,13 @@ main {
 
   margin: 5px 0 0;
 
-  font-size:
-    clamp(
-      34px,
-      5vw,
-      62px
-    );
+  font-size: clamp(34px, 5vw, 62px);
 
   line-height: 0.98;
 
   letter-spacing: -3px;
 
   overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
 .movie-year {
@@ -797,14 +734,10 @@ main {
   margin-left: 5px;
 
   color: white;
-
-  overflow-wrap: anywhere;
 }
 
 .already-watched {
   display: inline-flex;
-
-  max-width: 100%;
 
   padding: 8px 11px;
 
@@ -820,12 +753,12 @@ main {
 
 /* =========================================================
    MOVIE ACTION BUTTONS
-========================================================= */
+   ========================================================= */
 
 .movie-featured-info > button {
-  max-width: 100%;
-
   min-height: 44px;
+
+  max-width: 100%;
 
   margin-top: 3px;
 
@@ -850,8 +783,7 @@ main {
 .movie-featured-info > button:hover {
   background: #e8e8ed;
 
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .letterboxd-button {
@@ -859,9 +791,9 @@ main {
 
   align-items: center;
 
-  max-width: 100%;
-
   min-height: 40px;
+
+  max-width: 100%;
 
   padding: 0 15px;
 
@@ -879,8 +811,6 @@ main {
 
   font-weight: 600;
 
-  overflow-wrap: anywhere;
-
   transition:
     background var(--transition),
     color var(--transition);
@@ -895,14 +825,12 @@ main {
 
 /* =========================================================
    FEATURED DIVIDERS
-========================================================= */
+   ========================================================= */
 
 .movie-card-featured hr {
   width: 100%;
-  max-width: 100%;
 
-  margin:
-    30px 0;
+  margin: 30px 0;
 
   border: 0;
 
@@ -912,11 +840,12 @@ main {
 
 /* =========================================================
    RATINGS
-========================================================= */
+   ========================================================= */
 
 .ratings-section {
   width: 100%;
   max-width: 480px;
+  min-width: 0;
 }
 
 .ratings-section h3,
@@ -949,8 +878,6 @@ main {
 
 .rating-row strong {
   color: white;
-
-  flex-shrink: 0;
 }
 
 .average-rating {
@@ -967,8 +894,7 @@ main {
   padding: 12px 14px;
 
   border:
-    1px solid
-    rgba(229, 9, 20, 0.16);
+    1px solid rgba(229, 9, 20, 0.16);
 
   border-radius: 8px;
 
@@ -986,7 +912,7 @@ main {
 
 /* =========================================================
    RATING FORM
-========================================================= */
+   ========================================================= */
 
 .your-rating {
   width: 100%;
@@ -995,6 +921,8 @@ main {
 }
 
 .your-rating select {
+  display: block;
+
   width: 100%;
   max-width: 100%;
 
@@ -1011,8 +939,7 @@ main {
 
   outline: none;
 
-  background:
-    #161616;
+  background: #161616;
 
   color: white;
 
@@ -1020,6 +947,8 @@ main {
 }
 
 #save-rating-button {
+  display: block;
+
   width: 100%;
   max-width: 100%;
 
@@ -1052,11 +981,10 @@ main {
 
 /* =========================================================
    STATS
-========================================================= */
+   ========================================================= */
 
 .stats-section {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   display: grid;
@@ -1070,20 +998,17 @@ main {
 
   align-items: center;
 
-  margin:
-    70px 0;
+  margin: 70px 0;
 
-  padding:
-    20px 0;
+  padding: 20px 0;
 
-  border-top:
-    1px solid var(--border);
-
-  border-bottom:
-    1px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .stat-item {
+  min-width: 0;
+
   display: flex;
 
   flex-direction: column;
@@ -1092,7 +1017,7 @@ main {
 
   gap: 5px;
 
-  min-width: 0;
+  text-align: center;
 }
 
 .stat-number {
@@ -1106,6 +1031,8 @@ main {
 }
 
 .stat-label {
+  max-width: 100%;
+
   color: var(--gray-3);
 
   font-size: 9px;
@@ -1115,13 +1042,10 @@ main {
   letter-spacing: 1.6px;
 
   text-transform: uppercase;
-
-  text-align: center;
 }
 
 .stat-symbol {
-  color:
-    var(--netflix-red);
+  color: var(--netflix-red);
 
   font-size: 26px;
 
@@ -1139,17 +1063,19 @@ main {
 
 /* =========================================================
    WATCHED SECTION
-========================================================= */
+   ========================================================= */
 
 .watched-section {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   padding-bottom: 90px;
 }
 
 .section-heading {
+  width: 100%;
+  min-width: 0;
+
   display: flex;
 
   align-items: flex-end;
@@ -1166,8 +1092,7 @@ main {
 
   margin-bottom: 6px;
 
-  color:
-    var(--netflix-red);
+  color: var(--netflix-red);
 
   font-size: 9px;
 
@@ -1187,7 +1112,7 @@ main {
 }
 
 .section-count {
-  flex-shrink: 0;
+  flex: 0 0 auto;
 
   color: var(--gray-3);
 
@@ -1196,20 +1121,16 @@ main {
 
 /* =========================================================
    WATCHED GRID
-========================================================= */
+   ========================================================= */
 
 #watched-movies {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   display: grid;
 
   grid-template-columns:
-    repeat(
-      5,
-      minmax(0, 1fr)
-    );
+    repeat(5, minmax(0, 1fr));
 
   gap: 18px;
 }
@@ -1218,7 +1139,6 @@ main {
   position: relative;
 
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   min-height: 300px;
@@ -1238,10 +1158,8 @@ main {
   background-position: center;
 
   transition:
-    transform 300ms
-    cubic-bezier(.2, .7, .2, 1),
-    box-shadow 300ms
-    cubic-bezier(.2, .7, .2, 1);
+    transform 300ms cubic-bezier(.2, .7, .2, 1),
+    box-shadow 300ms cubic-bezier(.2, .7, .2, 1);
 }
 
 .watched-card:hover {
@@ -1252,8 +1170,7 @@ main {
     scale(1.015);
 
   box-shadow:
-    0 24px 50px
-    rgba(0, 0, 0, 0.55);
+    0 24px 50px rgba(0, 0, 0, 0.55);
 }
 
 .watched-card-overlay {
@@ -1279,8 +1196,6 @@ main {
 
   z-index: 2;
 
-  width: 100%;
-  max-width: 100%;
   min-width: 0;
 
   display: flex;
@@ -1293,9 +1208,6 @@ main {
 }
 
 .watched-card-content h3 {
-  width: 100%;
-  max-width: 100%;
-
   margin: 0;
 
   font-size: 14px;
@@ -1305,7 +1217,6 @@ main {
   line-height: 1.2;
 
   overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
 .watched-card-content p {
@@ -1324,13 +1235,9 @@ main {
   gap: 5px;
 
   margin-top: 3px;
-
-  min-width: 0;
 }
 
 .watched-ratings span {
-  max-width: 100%;
-
   padding: 4px 6px;
 
   border-radius: 4px;
@@ -1351,7 +1258,6 @@ main {
 
 .rate-movie-button {
   width: 100%;
-  max-width: 100%;
 
   min-height: 33px;
 
@@ -1372,8 +1278,7 @@ main {
 
   opacity: 0;
 
-  transform:
-    translateY(5px);
+  transform: translateY(5px);
 
   transition:
     opacity var(--transition),
@@ -1383,21 +1288,16 @@ main {
 .watched-card:hover .rate-movie-button {
   opacity: 1;
 
-  transform:
-    translateY(0);
+  transform: translateY(0);
 }
 
 .card-letterboxd {
-  max-width: 100%;
-
   color:
     rgba(255, 255, 255, 0.6);
 
   font-size: 9px;
 
   text-align: center;
-
-  overflow-wrap: anywhere;
 
   transition:
     color var(--transition);
@@ -1409,14 +1309,12 @@ main {
 
 /* =========================================================
    LOADING
-========================================================= */
+   ========================================================= */
 
 .loading-card {
-  grid-column:
-    1 / -1;
+  grid-column: 1 / -1;
 
   width: 100%;
-  max-width: 100%;
 
   min-height: 120px;
 
@@ -1425,10 +1323,6 @@ main {
   align-items: center;
 
   justify-content: center;
-
-  padding: 20px;
-
-  text-align: center;
 
   border:
     1px solid var(--border);
@@ -1441,11 +1335,13 @@ main {
     rgba(255, 255, 255, 0.025);
 
   font-size: 13px;
+
+  text-align: center;
 }
 
 /* =========================================================
    USER SELECTOR
-========================================================= */
+   ========================================================= */
 
 .user-selector {
   width: 100%;
@@ -1514,7 +1410,7 @@ main {
 
 /* =========================================================
    FOOTER
-========================================================= */
+   ========================================================= */
 
 .footer {
   width: 100%;
@@ -1525,19 +1421,13 @@ main {
 
   padding:
     26px 0 35px;
-
-  overflow: hidden;
 }
 
 .footer-inner {
-  width: min(
-    calc(100% - 48px),
-    var(--max-width)
-  );
-
+  width: min(calc(100% - 48px), var(--max-width));
   max-width: var(--max-width);
 
-  margin: auto;
+  margin: 0 auto;
 
   display: flex;
 
@@ -1554,16 +1444,12 @@ main {
 
 /* =========================================================
    TABLET
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 1050px) {
-
   #watched-movies {
     grid-template-columns:
-      repeat(
-        4,
-        minmax(0, 1fr)
-      );
+      repeat(4, minmax(0, 1fr));
   }
 
   .movie-featured-layout {
@@ -1581,17 +1467,21 @@ main {
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 760px) {
 
   html,
   body {
     width: 100%;
+    min-width: 0;
     max-width: 100%;
-
-    overflow-x: hidden !important;
+    overflow-x: hidden;
   }
+
+  /* -----------------------------------------
+     HEADER
+     ----------------------------------------- */
 
   .topbar {
     width: 100%;
@@ -1602,24 +1492,11 @@ main {
     width: calc(100% - 32px);
     max-width: none;
 
-    margin:
-      0 16px;
+    margin: 0 16px;
   }
 
-  main {
-    width: calc(100% - 32px);
-    max-width: none;
-
-    margin:
-      0 16px;
-  }
-
-  .footer-inner {
-    width: calc(100% - 32px);
-    max-width: none;
-
-    margin:
-      0 16px;
+  .brand {
+    flex: 0 1 auto;
   }
 
   .brand-name {
@@ -1630,15 +1507,32 @@ main {
     display: none;
   }
 
-  .current-user {
-    max-width: 90px;
+  .profile-area {
+    margin-left: auto;
   }
 
-  /* HERO */
+  .current-user {
+    max-width: 100px;
+  }
+
+  /* -----------------------------------------
+     MAIN
+     ----------------------------------------- */
+
+  main {
+    width: calc(100% - 32px);
+    max-width: none;
+
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  /* -----------------------------------------
+     HERO
+     ----------------------------------------- */
 
   .hero {
     width: 100%;
-    max-width: 100%;
 
     min-height: 480px;
 
@@ -1649,9 +1543,17 @@ main {
     overflow: hidden;
   }
 
+  .hero::before {
+    left: -180px;
+    top: -100px;
+
+    width: 600px;
+    max-width: none;
+  }
+
   .hero-copy {
     width: 100%;
-    max-width: 100%;
+    max-width: none;
 
     padding-top: 50px;
   }
@@ -1686,20 +1588,45 @@ main {
     margin-top: 23px;
   }
 
-  /* RESULT */
+  /* -----------------------------------------
+     RESULT
+     ----------------------------------------- */
 
   .result-section {
     width: 100%;
-    max-width: 100%;
 
     margin-top: 0;
 
     overflow: hidden;
   }
 
+  #movie-result {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .empty-result {
+    width: 100%;
+
+    padding:
+      60px 16px;
+  }
+
+  .empty-result h2 {
+    font-size: 24px;
+  }
+
+  .empty-result p {
+    max-width: 320px;
+  }
+
+  /* -----------------------------------------
+     FEATURED MOVIE
+     ----------------------------------------- */
+
   .movie-card-featured {
     width: 100%;
-    max-width: 100%;
+    min-width: 0;
 
     padding: 20px;
 
@@ -1708,9 +1635,7 @@ main {
 
   .movie-featured-layout {
     width: 100%;
-    max-width: 100%;
-
-    display: grid;
+    min-width: 0;
 
     grid-template-columns: 1fr;
 
@@ -1718,34 +1643,27 @@ main {
   }
 
   .movie-featured-poster {
-    width:
-      min(
-        220px,
-        65vw
-      );
-
+    width: min(220px, 65vw);
     max-width: 100%;
 
-    margin: auto;
+    margin: 0 auto;
   }
 
   .movie-featured-info {
     width: 100%;
-    max-width: 100%;
+    min-width: 0;
 
     align-items: stretch;
   }
 
   .movie-featured-info h2 {
     width: 100%;
-    max-width: 100%;
 
     font-size: 38px;
 
     letter-spacing: -2px;
 
     overflow-wrap: anywhere;
-    word-break: break-word;
   }
 
   .movie-featured-info > button,
@@ -1756,19 +1674,22 @@ main {
     justify-content: center;
   }
 
-  /* RATINGS */
+  /* -----------------------------------------
+     RATINGS
+     ----------------------------------------- */
 
   .ratings-section,
   .your-rating {
     width: 100%;
-    max-width: 100%;
+    max-width: none;
   }
 
-  /* STATS */
+  /* -----------------------------------------
+     STATS
+     ----------------------------------------- */
 
   .stats-section {
     width: 100%;
-    max-width: 100%;
 
     margin:
       50px 0;
@@ -1787,18 +1708,18 @@ main {
     letter-spacing: 1px;
   }
 
-  /* WATCHED */
+  /* -----------------------------------------
+     WATCHED
+     ----------------------------------------- */
 
   .watched-section {
     width: 100%;
-    max-width: 100%;
 
     overflow: hidden;
   }
 
   .section-heading {
     width: 100%;
-    max-width: 100%;
 
     gap: 10px;
   }
@@ -1809,22 +1730,16 @@ main {
 
   #watched-movies {
     width: 100%;
-    max-width: 100%;
 
     grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
+      repeat(2, minmax(0, 1fr));
 
     gap: 10px;
-
-    overflow: visible;
   }
 
   .watched-card {
     width: 100%;
-    max-width: 100%;
+    min-width: 0;
 
     min-height: 275px;
 
@@ -1833,13 +1748,15 @@ main {
 
   .watched-card-content {
     width: 100%;
-    max-width: 100%;
+    min-width: 0;
 
     padding: 12px;
   }
 
   .watched-card-content h3 {
     font-size: 12px;
+
+    overflow-wrap: anywhere;
   }
 
   .watched-ratings span {
@@ -1849,13 +1766,24 @@ main {
   .rate-movie-button {
     opacity: 1;
 
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
 
-  /* FOOTER */
+  /* -----------------------------------------
+     FOOTER
+     ----------------------------------------- */
+
+  .footer {
+    width: 100%;
+  }
 
   .footer-inner {
+    width: calc(100% - 32px);
+    max-width: none;
+
+    margin:
+      0 16px;
+
     flex-direction: column;
 
     align-items: flex-start;
@@ -1866,31 +1794,14 @@ main {
 
 /* =========================================================
    SMALL MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 420px) {
-
-  .topbar-inner,
-  main,
-  .footer-inner {
-    width: calc(100% - 24px);
-
-    margin-left: 12px;
-    margin-right: 12px;
-  }
-
-  .current-user {
-    max-width: 75px;
-  }
 
   .hero h1 {
     font-size: 50px;
 
     letter-spacing: -3px;
-  }
-
-  .movie-card-featured {
-    padding: 16px;
   }
 
   .movie-featured-info h2 {
@@ -1905,62 +1816,41 @@ main {
     min-height: 250px;
   }
 
-  .watched-card-content {
-    padding: 10px;
-  }
-
-  .watched-card-content h3 {
-    font-size: 11px;
-  }
-
-  .section-heading h2 {
-    font-size: 23px;
+  .movie-card-featured {
+    padding: 16px;
   }
 }
 
 /* =========================================================
-   SAFETY AGAINST HORIZONTAL OVERFLOW
-========================================================= */
+   IPHONE / SAFARI
+   ========================================================= */
 
-@media (max-width: 760px) {
+@supports (-webkit-touch-callout: none) {
 
-  .hero *,
-  .result-section *,
-  .stats-section *,
-  .watched-section *,
-  .footer * {
+  html {
+    width: 100%;
     max-width: 100%;
+    overflow-x: hidden;
   }
 
-  .hero h1,
-  .movie-featured-info h2,
-  .watched-card-content h3,
-  .movie-status,
-  .movie-year,
-  .letterboxd-button,
-  .card-letterboxd {
-    overflow-wrap: anywhere;
-    word-break: break-word;
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+
+    -webkit-text-size-adjust: 100%;
   }
 
-  .movie-featured-layout,
-  .movie-featured-info,
-  .ratings-section,
-  .your-rating,
-  .watched-card-content {
-    min-width: 0;
-  }
-
-  select,
-  button,
-  img {
+  .topbar,
+  main,
+  .footer {
     max-width: 100%;
   }
 }
 
 /* =========================================================
    REDUCED MOTION
-========================================================= */
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1968,14 +1858,8 @@ main {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-
-    animation-duration:
-      0.01ms !important;
-
-    animation-iteration-count:
-      1 !important;
-
-    transition-duration:
-      0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
