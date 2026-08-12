@@ -208,7 +208,7 @@ function updateUserDisplay() {
   if (currentUserId === VICTORIA_ID) {
     currentUser.textContent = "👩🏼 Victoria";
   } else if (currentUserId === AXEL_ID) {
-    currentUser.textContent = "💙 Axel";
+    currentUser.textContent = "🧑🏽‍🦱 Axel";
   } else {
     currentUser.textContent = "No seleccionado";
   }
