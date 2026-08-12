@@ -2,15 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
- <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
-/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
 
   <title>CineMatch</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -20,7 +25,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
 
-  <meta name="theme-color" content="#E50914" />
+  <meta name="theme-color" content="#050505" />
 
   <meta
     name="apple-mobile-web-app-capable"
@@ -28,9 +33,9 @@
   />
 
   <meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black"
-/>
+    name="apple-mobile-web-app-status-bar-style"
+    content="black"
+  />
 
   <meta
     name="apple-mobile-web-app-title"
@@ -47,6 +52,23 @@
 <body>
 
   <!-- =====================================================
+       CURSOR / DECORACIÓN
+       ===================================================== -->
+
+  <div class="site-noise"></div>
+
+  <div
+    class="floating-orb floating-orb-one"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="floating-orb floating-orb-two"
+    aria-hidden="true"
+  ></div>
+
+
+  <!-- =====================================================
        NAVIGATION
        ===================================================== -->
 
@@ -55,13 +77,21 @@
     <div class="topbar-inner">
 
       <a
-        href="#"
+        href="#discover"
         class="brand"
         aria-label="CineMatch"
       >
-        <span class="brand-mark">C</span>
-        <span class="brand-name">CineMatch</span>
+
+        <span class="brand-mark">
+          C
+        </span>
+
+        <span class="brand-name">
+          CineMatch
+        </span>
+
       </a>
+
 
       <nav class="main-nav">
 
@@ -76,10 +106,11 @@
           href="#watched-section"
           class="nav-link"
         >
-          Películas vistas
+          Colección
         </a>
 
       </nav>
+
 
       <div class="profile-area">
 
@@ -112,68 +143,145 @@
 
   <main>
 
-    <!-- HERO -->
+
+    <!-- ===================================================
+         HERO
+         =================================================== -->
 
     <section
       id="discover"
       class="hero"
     >
 
-      <div class="hero-copy">
+      <div class="hero-grid">
 
-        <span class="eyebrow">
-          CINE · PARA DOS
+        <div class="hero-copy reveal">
+
+          <span class="eyebrow">
+            CINE · PARA DOS
+          </span>
+
+
+          <h1 class="hero-title">
+
+            <span class="hero-line">
+              ¿Qué vemos
+            </span>
+
+            <span class="hero-line hero-line-indent">
+              hoy?
+            </span>
+
+          </h1>
+
+
+          <div class="hero-bottom">
+
+            <p class="hero-description">
+              Una película elegida de nuestra colección.
+              Sin discusiones. Bueno... quizás después.
+            </p>
+
+
+            <button
+              id="shuffle-button"
+              class="primary-button"
+              type="button"
+            >
+
+              <span class="button-circle">
+                <span class="play-icon">▶</span>
+              </span>
+
+              <span>
+                Sortear película
+              </span>
+
+              <span class="button-arrow">
+                ↗
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="hero-decoration"
+          aria-hidden="true"
+        >
+
+          <div class="orbit orbit-one"></div>
+
+          <div class="orbit orbit-two"></div>
+
+          <div class="orbit orbit-three"></div>
+
+          <span class="orbit-dot"></span>
+
+          <span class="hero-number">
+            01
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="scroll-hint">
+
+        <span>
+          Scroll para descubrir
         </span>
 
-        <h1>
-          ¿Qué vemos<br />
-          hoy?
-        </h1>
-
-        <p class="hero-description">
-          Una película elegida de nuestra colección.
-          Sin discusiones. Bueno... quizás después.
-        </p>
-
-        <button
-          id="shuffle-button"
-          class="primary-button"
-          type="button"
-        >
-          <span class="play-icon">▶</span>
-          <span>Sortear película</span>
-        </button>
+        <span class="scroll-line"></span>
 
       </div>
 
     </section>
 
 
-    <!-- =================================================
+    <!-- ===================================================
          MOVIE RESULT
-         ================================================= -->
+         =================================================== -->
 
     <section
-      class="result-section"
+      class="result-section reveal-section"
       aria-label="Película seleccionada"
     >
+
+      <div class="section-index">
+        02
+      </div>
+
 
       <div id="movie-result">
 
         <div class="empty-result">
 
-          <div class="empty-result-icon">
-            🎬
+          <div class="empty-result-symbol">
+            ✦
           </div>
 
-          <h2>
-            Tu próxima película
-          </h2>
 
-          <p>
-            Tocá “Sortear película” y descubramos
-            qué vamos a ver.
-          </p>
+          <div class="empty-result-content">
+
+            <span class="section-eyebrow">
+              PRÓXIMA ELECCIÓN
+            </span>
+
+            <h2>
+              Tu próxima película
+            </h2>
+
+            <p>
+              Tocá “Sortear película” y descubramos
+              qué vamos a ver.
+            </p>
+
+          </div>
 
         </div>
 
@@ -182,79 +290,95 @@
     </section>
 
 
-    <!-- =================================================
+    <!-- ===================================================
          STATS
-         ================================================= -->
+         =================================================== -->
 
     <section
-      class="stats-section"
+      class="stats-section reveal-section"
       aria-label="Estadísticas"
     >
 
-      <div class="stat-item">
+      <div class="stats-intro">
 
-        <strong
-          id="movie-count"
-          class="stat-number"
-        >
-          —
-        </strong>
-
-        <span class="stat-label">
-          Películas
+        <span class="section-eyebrow">
+          NUESTRA COLECCIÓN
         </span>
+
+        <p>
+          Todo lo que todavía
+          podemos descubrir.
+        </p>
 
       </div>
 
-      <div class="stat-divider"></div>
 
-      <div class="stat-item">
+      <div class="stats-list">
 
-        <strong
-          id="watched-count"
-          class="stat-number"
-        >
-          0
-        </strong>
+        <div class="stat-item">
 
-        <span class="stat-label">
-          Vistas
-        </span>
+          <strong
+            id="movie-count"
+            class="stat-number"
+          >
+            —
+          </strong>
 
-      </div>
+          <span class="stat-label">
+            Películas
+          </span>
 
-      <div class="stat-divider"></div>
+        </div>
 
-      <div class="stat-item stat-highlight">
 
-        <strong class="stat-symbol">
-          ♥
-        </strong>
+        <div class="stat-item">
 
-        <span class="stat-label">
-          Axel & Victoria
-        </span>
+          <strong
+            id="watched-count"
+            class="stat-number"
+          >
+            0
+          </strong>
+
+          <span class="stat-label">
+            Vistas
+          </span>
+
+        </div>
+
+
+        <div class="stat-item stat-love">
+
+          <strong class="stat-symbol">
+            ♥
+          </strong>
+
+          <span class="stat-label">
+            Axel & Victoria
+          </span>
+
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- =================================================
-         WATCHED
-         ================================================= -->
+    <!-- ===================================================
+         WATCHED COLLECTION
+         =================================================== -->
 
     <section
       id="watched-section"
-      class="watched-section"
+      class="watched-section reveal-section"
     >
 
       <div class="section-heading">
 
-        <div>
+        <div class="section-heading-left">
 
           <span class="section-eyebrow">
-            COLECCIÓN
+            03 · COLECCIÓN
           </span>
 
           <h2>
@@ -263,9 +387,20 @@
 
         </div>
 
-        <span class="section-count">
-          <span id="watched-count-label">Todas</span>
-        </span>
+
+        <div class="section-heading-right">
+
+          <span class="section-count">
+            <span id="watched-count-label">
+              Todas
+            </span>
+          </span>
+
+          <span class="heading-arrow">
+            ↓
+          </span>
+
+        </div>
 
       </div>
 
@@ -283,6 +418,7 @@
 
     </section>
 
+
   </main>
 
 
@@ -294,13 +430,31 @@
 
     <div class="footer-inner">
 
-      <span>
-        CineMatch
-      </span>
+      <div class="footer-brand">
 
-      <span>
+        <span class="brand-mark">
+          C
+        </span>
+
+        <span>
+          CineMatch
+        </span>
+
+      </div>
+
+
+      <div class="footer-center">
+
         Hecho para Axel & Victoria
-      </span>
+
+      </div>
+
+
+      <div class="footer-year">
+
+        CINE · PARA DOS
+
+      </div>
 
     </div>
 
