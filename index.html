@@ -413,7 +413,156 @@
 
     </section>
 
+<!-- ===================================================
+     SNACKS
+==================================================== -->
 
+<section
+  id="snacks"
+  class="snacks-section"
+  aria-labelledby="snacks-title"
+>
+
+  <div class="section-heading">
+
+    <div class="section-heading-left">
+
+      <div class="section-eyebrow">
+        PARA ACOMPAÑAR
+      </div>
+
+      <h2 id="snacks-title">
+        ¿Qué comemos?
+      </h2>
+
+    </div>
+
+    <div class="section-heading-right">
+      🍿
+    </div>
+
+  </div>
+
+
+  <div class="snacks-intro">
+
+    <p>
+      Primero elegí qué snacks tienen disponibles.
+      Después decidí cuáles querés poner en la ruleta.
+    </p>
+
+  </div>
+
+
+  <!-- OPCIONES DE SNACKS -->
+
+  <div class="snacks-panel">
+
+    <div class="snacks-panel-header">
+
+      <div>
+        <span class="section-eyebrow">
+          DISPONIBLES
+        </span>
+
+        <h3>
+          Lo que tenemos
+        </h3>
+      </div>
+
+      <span class="snacks-selected-count">
+        <span id="snacks-selected-count">0</span>
+        seleccionados
+      </span>
+
+    </div>
+
+
+    <div
+      id="snack-options"
+      class="snack-options"
+    ></div>
+
+
+    <div class="add-snack">
+
+      <input
+        id="new-snack-input"
+        type="text"
+        placeholder="Agregar otro snack..."
+        maxlength="30"
+      >
+
+      <button
+        id="add-snack-button"
+        type="button"
+      >
+        + Agregar
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- RULETA -->
+
+  <div class="snack-wheel-area">
+
+    <div class="wheel-header">
+
+      <span class="section-eyebrow">
+        SORTEO
+      </span>
+
+      <h3>
+        La ruleta decide.
+      </h3>
+
+      <p>
+        Solo participan los snacks que hayas seleccionado.
+      </p>
+
+    </div>
+
+
+    <div class="wheel-wrapper">
+
+      <div class="wheel-pointer">
+        ▼
+      </div>
+
+      <div
+        id="snack-wheel"
+        class="snack-wheel"
+      >
+        <div class="wheel-center">
+          <span>🍿</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <button
+      id="spin-snack-button"
+      class="snack-spin-button"
+      type="button"
+      disabled
+    >
+      🎡 Girar la ruleta
+    </button>
+
+
+    <div
+      id="snack-result"
+      class="snack-result"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+</section>
   </main>
 
 
