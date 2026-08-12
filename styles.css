@@ -2883,18 +2883,25 @@ main {
   border-radius: 50%;
   border: 10px solid #171717;
   overflow: hidden;
-  background:
-    conic-gradient(
-      #f7d8d8 0deg 90deg,
-      #dce8f7 90deg 180deg,
-      #f6e7bd 180deg 270deg,
-      #dcebdc 270deg 360deg
-    );
+
+  background: conic-gradient(
+    from -90deg,
+    var(--wheel-colors)
+  );
+
   box-shadow:
     0 25px 70px rgba(0, 0, 0, 0.16),
-    inset 0 0 0 4px rgba(255,255,255,0.5);
+    inset 0 0 0 4px rgba(255, 255, 255, 0.5);
+
   transform: rotate(0deg);
-  transition: transform 5.2s cubic-bezier(0.12, 0.8, 0.18, 1);
+
+  transition:
+    transform 5.2s cubic-bezier(
+      0.12,
+      0.8,
+      0.18,
+      1
+    );
 }
 
 .snack-wheel::after {
