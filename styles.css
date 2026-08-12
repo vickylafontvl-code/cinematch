@@ -2660,3 +2660,415 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
+/* =====================================================
+   SNACKS
+===================================================== */
+
+.snacks-section {
+  position: relative;
+  padding: 120px 6vw 140px;
+  overflow: hidden;
+}
+
+.snacks-intro {
+  max-width: 620px;
+  margin: -25px 0 45px;
+}
+
+.snacks-intro p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.72;
+}
+
+
+/* =====================================================
+   PANEL DE SNACKS
+===================================================== */
+
+.snacks-panel {
+  max-width: 1100px;
+  margin: 0 auto 100px;
+  padding: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px);
+}
+
+.snacks-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.snacks-panel-header h3 {
+  margin: 6px 0 0;
+  font-size: 1.7rem;
+}
+
+.snacks-selected-count {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+#snacks-selected-count {
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   OPCIONES
+===================================================== */
+
+.snack-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.snack-option {
+  position: relative;
+}
+
+.snack-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.snack-option label {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 78px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.snack-option label:hover {
+  transform: translateY(-3px);
+}
+
+.snack-option input:checked + label {
+  border-color: rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.snack-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.snack-name {
+  font-weight: 650;
+}
+
+.snack-check {
+  margin-left: auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.snack-option input:checked + label .snack-check {
+  background: #171717;
+  color: white;
+  border-color: #171717;
+}
+
+
+/* =====================================================
+   AGREGAR SNACK
+===================================================== */
+
+.add-snack {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.add-snack input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  outline: none;
+}
+
+.add-snack input:focus {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+.add-snack button {
+  border: 0;
+  border-radius: 14px;
+  padding: 15px 22px;
+  background: #171717;
+  color: white;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.add-snack button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   RULETA
+===================================================== */
+
+.snack-wheel-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.wheel-header {
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.wheel-header h3 {
+  margin: 8px 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.wheel-header p {
+  opacity: 0.62;
+}
+
+
+/* =====================================================
+   RUEDA
+===================================================== */
+
+.wheel-wrapper {
+  position: relative;
+  width: min(420px, 82vw);
+  aspect-ratio: 1;
+  margin: 15px auto 35px;
+}
+
+.snack-wheel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid #171717;
+  overflow: hidden;
+  background:
+    conic-gradient(
+      #f7d8d8 0deg 90deg,
+      #dce8f7 90deg 180deg,
+      #f6e7bd 180deg 270deg,
+      #dcebdc 270deg 360deg
+    );
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.16),
+    inset 0 0 0 4px rgba(255,255,255,0.5);
+  transform: rotate(0deg);
+  transition: transform 5.2s cubic-bezier(0.12, 0.8, 0.18, 1);
+}
+
+.snack-wheel::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  pointer-events: none;
+}
+
+.wheel-center {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  width: 74px;
+  height: 74px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #171717;
+  border: 5px solid #f4f1eb;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.wheel-center span {
+  font-size: 1.7rem;
+}
+
+.wheel-pointer {
+  position: absolute;
+  z-index: 20;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #171717;
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.12));
+}
+
+
+/* =====================================================
+   TEXTO DE LA RULETA
+===================================================== */
+
+.wheel-item {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 750;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   BOTÓN
+===================================================== */
+
+.snack-spin-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 17px 30px;
+  background: #171717;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.snack-spin-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.snack-spin-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+.snack-result {
+  min-height: 100px;
+  margin-top: 35px;
+}
+
+.snack-result-card {
+  animation: snackReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.snack-result-emoji {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.snack-result-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  opacity: 0.5;
+}
+
+.snack-result-name {
+  margin: 6px 0 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+
+@keyframes snackReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(25px) scale(0.85);
+  }
+
+  60% {
+    transform: translateY(-5px) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .snack-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .snacks-section {
+    padding: 90px 5vw 100px;
+  }
+
+  .snacks-panel {
+    padding: 22px;
+  }
+
+  .snacks-panel-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .snack-options {
+    grid-template-columns: 1fr;
+  }
+
+  .add-snack {
+    flex-direction: column;
+  }
+
+  .add-snack button {
+    width: 100%;
+  }
+
+}
