@@ -1,4 +1,7 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
 
 // =====================================================
 // SUPABASE
@@ -15,6 +18,7 @@ const supabase = createClient(
   SUPABASE_KEY
 );
 
+
 // =====================================================
 // USUARIOS
 // =====================================================
@@ -25,10 +29,12 @@ const VICTORIA_ID =
 const AXEL_ID =
   "79dd99d1-11f0-40cb-9c22-3c5a0e6d0006";
 
+
 let currentUserId =
   localStorage.getItem("cinematch_user_id");
 
 let currentMovie = null;
+
 
 // =====================================================
 // ELEMENTOS
@@ -49,18 +55,25 @@ const currentUser =
 const watchedCount =
   document.getElementById("watched-count");
 
+const watchedCountHeading =
+  document.getElementById("watched-count-heading");
+
 const watchedMovies =
   document.getElementById("watched-movies");
 
 const changeUserButton =
   document.getElementById("change-user-button");
 
+
 // =====================================================
 // UTILIDADES
 // =====================================================
 
 function escapeHTML(value) {
-  if (value === null || value === undefined) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
     return "";
   }
 
@@ -72,35 +85,72 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
+
 function getPosterURL(movie) {
-  if (!movie || !movie.poster_url) {
+  if (
+    !movie ||
+    !movie.poster_url
+  ) {
     return "";
   }
 
-  return String(movie.poster_url).trim();
+  return String(
+    movie.poster_url
+  ).trim();
 }
 
-function getPosterHTML(movie, large = false) {
-  const poster = getPosterURL(movie);
-  const title = escapeHTML(
-    movie?.title || "Película"
-  );
 
-  const className = large
-    ? "movie-poster-large"
-    : "movie-poster";
+function getLetterboxdURL(movie) {
+  if (
+    !movie ||
+    !movie.letterboxd_url
+  ) {
+    return "";
+  }
+
+  return String(
+    movie.letterboxd_url
+  ).trim();
+}
+
+
+function getPosterHTML(
+  movie,
+  large = false
+) {
+  const poster =
+    getPosterURL(movie);
+
+  const title =
+    escapeHTML(
+      movie?.title || "Película"
+    );
+
+  const className =
+    large
+      ? "movie-poster-large"
+      : "movie-poster";
+
 
   if (!poster) {
     return `
-      <div class="${className} poster-placeholder">
-        <div class="poster-placeholder-icon">
+      <div
+        class="${className} poster-placeholder"
+      >
+        <div
+          class="poster-placeholder-icon"
+          aria-hidden="true"
+        >
           🎬
         </div>
 
-        <span>${title}</span>
+        <span>
+          ${title}
+        </span>
       </div>
     `;
   }
+
 
   return `
     <img
@@ -113,6 +163,54 @@ function getPosterHTML(movie, large = false) {
   `;
 }
 
+
+function getDefaultShuffleButtonHTML(
+  text = "Sortear película"
+) {
+  return `
+    <span class="button-circle">
+      <span
+        class="play-icon"
+        aria-hidden="true"
+      >
+        ▶
+      </span>
+    </span>
+
+    <span>
+      ${escapeHTML(text)}
+    </span>
+
+    <span
+      class="button-arrow"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  `;
+}
+
+
+function showError(
+  title,
+  message
+) {
+  movieResult.innerHTML = `
+    <div class="error-card">
+
+      <strong>
+        ${escapeHTML(title)}
+      </strong>
+
+      <p>
+        ${escapeHTML(message)}
+      </p>
+
+    </div>
+  `;
+}
+
+
 // =====================================================
 // USUARIO
 // =====================================================
@@ -121,7 +219,13 @@ function showUserSelector() {
   movieResult.innerHTML = `
     <div class="user-selector">
 
-      <h2>¿Quién sos?</h2>
+      <div class="section-eyebrow">
+        CINE MATCH
+      </div>
+
+      <h2>
+        ¿Quién sos?
+      </h2>
 
       <p>
         Elegí quién está usando CineMatch.
@@ -144,20 +248,27 @@ function showUserSelector() {
     </div>
   `;
 
+
   document
     .getElementById("victoria-button")
-    .addEventListener(
+    ?.addEventListener(
       "click",
-      () => selectUser(VICTORIA_ID)
+      () => {
+        selectUser(VICTORIA_ID);
+      }
     );
+
 
   document
     .getElementById("axel-button")
-    .addEventListener(
+    ?.addEventListener(
       "click",
-      () => selectUser(AXEL_ID)
+      () => {
+        selectUser(AXEL_ID);
+      }
     );
 }
+
 
 function selectUser(userId) {
   currentUserId = userId;
@@ -169,52 +280,86 @@ function selectUser(userId) {
 
   updateUserDisplay();
 
+
   movieResult.innerHTML = `
     <div class="empty-result">
 
-      <div class="empty-result-icon">
+      <div
+        class="empty-result-symbol"
+        aria-hidden="true"
+      >
         ✓
       </div>
 
-      <h2>
-        Usuario seleccionado
-      </h2>
+      <div class="empty-result-content">
 
-      <p>
-        Ahora pueden sortear una película.
-      </p>
+        <div class="section-eyebrow">
+          LISTO
+        </div>
+
+        <h2>
+          Usuario seleccionado.
+        </h2>
+
+        <p>
+          Ahora pueden sortear una película.
+        </p>
+
+      </div>
 
     </div>
   `;
 
+
   loadWatchedMovies();
 }
 
+
 function updateUserDisplay() {
   if (currentUserId === VICTORIA_ID) {
-    currentUser.textContent = "❤️ Victoria";
-  } else if (currentUserId === AXEL_ID) {
-    currentUser.textContent = "💙 Axel";
-  } else {
-    currentUser.textContent = "No seleccionado";
+
+    currentUser.textContent =
+      "❤️ Victoria";
+
+    return;
   }
+
+
+  if (currentUserId === AXEL_ID) {
+
+    currentUser.textContent =
+      "💙 Axel";
+
+    return;
+  }
+
+
+  currentUser.textContent =
+    "No seleccionado";
 }
 
-if (changeUserButton) {
-  changeUserButton.addEventListener(
-    "click",
-    () => {
-      localStorage.removeItem(
-        "cinematch_user_id"
-      );
 
-      currentUserId = null;
+changeUserButton?.addEventListener(
+  "click",
+  () => {
 
-      showUserSelector();
-      updateUserDisplay();
-    }
-  );
-}
+    localStorage.removeItem(
+      "cinematch_user_id"
+    );
+
+    currentUserId = null;
+
+    updateUserDisplay();
+
+    showUserSelector();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+);
+
 
 // =====================================================
 // CANTIDAD DE PELÍCULAS
@@ -226,9 +371,12 @@ async function loadMovies() {
     error
   } = await supabase
     .from("movies")
-    .select("id");
+    .select("id")
+    .eq("status", "pending");
+
 
   if (error) {
+
     console.error(
       "Error cargando películas:",
       error
@@ -241,40 +389,69 @@ async function loadMovies() {
     return;
   }
 
+
   if (movieCount) {
     movieCount.textContent =
       data?.length ?? 0;
   }
 }
 
+
 // =====================================================
 // SORTEAR PELÍCULA
 // =====================================================
 
 async function shuffleMovie() {
+
   if (!currentUserId) {
     showUserSelector();
     return;
   }
 
+
+  if (!shuffleButton) {
+    return;
+  }
+
+
   shuffleButton.disabled = true;
 
-  shuffleButton.innerHTML =
-    "🎲 Sorteando...";
+  shuffleButton.innerHTML = `
+    <span>
+      🎲 Sorteando…
+    </span>
+  `;
+
 
   movieResult.innerHTML = `
     <div class="empty-result">
 
-      <div class="empty-result-icon">
+      <div
+        class="empty-result-symbol"
+        aria-hidden="true"
+      >
         🎲
       </div>
 
-      <h2>
-        Buscando una película...
-      </h2>
+      <div class="empty-result-content">
+
+        <div class="section-eyebrow">
+          CINEMATCH
+        </div>
+
+        <h2>
+          Buscando una película…
+        </h2>
+
+        <p>
+          Un momento.
+        </p>
+
+      </div>
 
     </div>
   `;
+
 
   const {
     data,
@@ -284,53 +461,58 @@ async function shuffleMovie() {
     .select("*")
     .eq("status", "pending");
 
+
   if (error) {
+
     console.error(
       "Error sorteando película:",
       error
     );
 
-    movieResult.innerHTML = `
-      <div class="empty-result">
-
-        <div class="empty-result-icon">
-          ⚠️
-        </div>
-
-        <h2>
-          No se pudo cargar
-        </h2>
-
-        <p>
-          Hubo un problema al cargar las películas.
-        </p>
-
-      </div>
-    `;
+    showError(
+      "No se pudo cargar",
+      "Hubo un problema al cargar las películas."
+    );
 
     shuffleButton.disabled = false;
 
     shuffleButton.innerHTML =
-      '<span class="play-icon">▶</span> Sortear película';
+      getDefaultShuffleButtonHTML();
 
     return;
   }
 
-  if (!data || data.length === 0) {
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
     movieResult.innerHTML = `
       <div class="empty-result">
 
-        <div class="empty-result-icon">
+        <div
+          class="empty-result-symbol"
+          aria-hidden="true"
+        >
           🎬
         </div>
 
-        <h2>
-          No quedan películas
-        </h2>
+        <div class="empty-result-content">
 
-        <p>
-          Ya vimos todas las películas pendientes.
-        </p>
+          <div class="section-eyebrow">
+            FIN DE LA LISTA
+          </div>
+
+          <h2>
+            No quedan películas.
+          </h2>
+
+          <p>
+            Ya vimos todas las películas pendientes.
+          </p>
+
+        </div>
 
       </div>
     `;
@@ -338,10 +520,13 @@ async function shuffleMovie() {
     shuffleButton.disabled = false;
 
     shuffleButton.innerHTML =
-      '<span class="play-icon">▶</span> Sortear película';
+      getDefaultShuffleButtonHTML(
+        "Sortear película"
+      );
 
     return;
   }
+
 
   currentMovie =
     data[
@@ -350,25 +535,26 @@ async function shuffleMovie() {
       )
     ];
 
+
   await showMovie();
+
 
   shuffleButton.disabled = false;
 
   shuffleButton.innerHTML =
-    '<span class="play-icon">▶</span> Sortear otra';
+    getDefaultShuffleButtonHTML(
+      "Sortear otra"
+    );
 }
 
+
 // =====================================================
-// MOSTRAR PELÍCULA
+// OBTENER RATINGS
 // =====================================================
 
-async function showMovie() {
-  if (!currentMovie) {
-    return;
-  }
-
-  let ratings = [];
-
+async function getMovieRatings(
+  movieId
+) {
   const {
     data,
     error
@@ -377,73 +563,152 @@ async function showMovie() {
     .select("*")
     .eq(
       "movie_id",
+      movieId
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Error cargando ratings:",
+      error
+    );
+
+    return [];
+  }
+
+
+  return data ?? [];
+}
+
+
+function getRatingForUser(
+  ratings,
+  userId
+) {
+  return ratings.find(
+    rating =>
+      rating.user_id === userId
+  );
+}
+
+
+function calculateAverage(
+  victoriaRating,
+  axelRating
+) {
+  if (
+    !victoriaRating ||
+    !axelRating
+  ) {
+    return null;
+  }
+
+
+  return (
+    Number(victoriaRating.score) +
+    Number(axelRating.score)
+  ) / 2;
+}
+
+
+// =====================================================
+// MOSTRAR PELÍCULA
+// =====================================================
+
+async function showMovie() {
+
+  if (!currentMovie) {
+    return;
+  }
+
+
+  const ratings =
+    await getMovieRatings(
       currentMovie.id
     );
 
-  if (!error && data) {
-    ratings = data;
-  }
 
   const victoriaRating =
-    ratings.find(
-      rating =>
-        rating.user_id === VICTORIA_ID
+    getRatingForUser(
+      ratings,
+      VICTORIA_ID
     );
+
 
   const axelRating =
-    ratings.find(
-      rating =>
-        rating.user_id === AXEL_ID
+    getRatingForUser(
+      ratings,
+      AXEL_ID
     );
 
-  let average = null;
 
-  if (
-    victoriaRating &&
-    axelRating
-  ) {
-    average =
-      (
-        Number(victoriaRating.score) +
-        Number(axelRating.score)
-      ) / 2;
-  }
+  const myRating =
+    getRatingForUser(
+      ratings,
+      currentUserId
+    );
+
+
+  const average =
+    calculateAverage(
+      victoriaRating,
+      axelRating
+    );
+
 
   const title =
-    escapeHTML(currentMovie.title);
+    escapeHTML(
+      currentMovie.title
+    );
+
 
   const year =
     escapeHTML(
       currentMovie.year ?? ""
     );
 
+
   let status;
 
-  if (currentMovie.status === "pending") {
-    status = "Aún no la miraron";
-  } else if (
-    currentMovie.status === "watched"
+
+  if (
+    currentMovie.status ===
+    "pending"
   ) {
-    status = "Ya la miraron";
+
+    status =
+      "Aún no la miraron";
+
+  } else if (
+    currentMovie.status ===
+    "watched"
+  ) {
+
+    status =
+      "Ya la miraron";
+
   } else {
+
     status =
       escapeHTML(
         currentMovie.status ?? ""
       );
   }
 
+
   const letterboxdURL =
-    currentMovie.letterboxd_url
-      ? String(
-          currentMovie.letterboxd_url
-        ).trim()
-      : "";
+    getLetterboxdURL(
+      currentMovie
+    );
+
 
   const posterHTML =
     getPosterHTML(
       currentMovie,
       true
     );
+
 
   movieResult.innerHTML = `
     <div class="movie-card-featured">
@@ -459,6 +724,7 @@ async function showMovie() {
                   href="${escapeHTML(letterboxdURL)}"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Abrir ${title} en Letterboxd"
                 >
                   ${posterHTML}
                 </a>
@@ -468,15 +734,18 @@ async function showMovie() {
 
         </div>
 
+
         <div class="movie-featured-info">
 
           <span class="movie-badge">
             PELÍCULA SORTEADA
           </span>
 
+
           <h2>
             ${title}
           </h2>
+
 
           ${
             year
@@ -488,12 +757,15 @@ async function showMovie() {
               : ""
           }
 
+
           <p class="movie-status">
             Estado:
+
             <strong>
               ${status}
             </strong>
           </p>
+
 
           ${
             currentMovie.status === "pending"
@@ -511,6 +783,7 @@ async function showMovie() {
                 </p>
               `
           }
+
 
           ${
             letterboxdURL
@@ -531,13 +804,16 @@ async function showMovie() {
 
       </div>
 
+
       <hr>
+
 
       <div class="ratings-section">
 
         <h3>
           ⭐ Puntajes
         </h3>
+
 
         <div class="rating-row">
 
@@ -548,12 +824,15 @@ async function showMovie() {
           <strong>
             ${
               victoriaRating
-                ? victoriaRating.score
+                ? escapeHTML(
+                    victoriaRating.score
+                  )
                 : "—"
             }
           </strong>
 
         </div>
+
 
         <div class="rating-row">
 
@@ -564,12 +843,15 @@ async function showMovie() {
           <strong>
             ${
               axelRating
-                ? axelRating.score
+                ? escapeHTML(
+                    axelRating.score
+                  )
                 : "—"
             }
           </strong>
 
         </div>
+
 
         ${
           average !== null
@@ -591,13 +873,16 @@ async function showMovie() {
 
       </div>
 
+
       <hr>
+
 
       <div class="your-rating">
 
         <h3>
           Tu puntuación
         </h3>
+
 
         <select id="score-select">
 
@@ -608,11 +893,23 @@ async function showMovie() {
           ${Array.from(
             { length: 21 },
             (_, index) => {
+
               const score =
                 index / 2;
 
+              const selected =
+                myRating &&
+                Number(
+                  myRating.score
+                ) === score
+                  ? "selected"
+                  : "";
+
               return `
-                <option value="${score}">
+                <option
+                  value="${score}"
+                  ${selected}
+                >
                   ${score}
                 </option>
               `;
@@ -620,6 +917,7 @@ async function showMovie() {
           ).join("")}
 
         </select>
+
 
         <button
           id="save-rating-button"
@@ -633,53 +931,51 @@ async function showMovie() {
     </div>
   `;
 
-  const watchedButton =
-    document.getElementById(
-      "watched-button"
-    );
 
-  if (watchedButton) {
-    watchedButton.addEventListener(
+  document
+    .getElementById("watched-button")
+    ?.addEventListener(
       "click",
       markAsWatched
     );
-  }
 
-  const saveButton =
-    document.getElementById(
-      "save-rating-button"
-    );
 
-  if (saveButton) {
-    saveButton.addEventListener(
+  document
+    .getElementById("save-rating-button")
+    ?.addEventListener(
       "click",
       saveRating
     );
-  }
 }
+
 
 // =====================================================
 // MARCAR COMO VISTA
 // =====================================================
 
 async function markAsWatched() {
+
   if (!currentMovie) {
     return;
   }
+
 
   const watchedButton =
     document.getElementById(
       "watched-button"
     );
 
+
   if (!watchedButton) {
     return;
   }
 
+
   watchedButton.disabled = true;
 
   watchedButton.textContent =
-    "Guardando...";
+    "Guardando…";
+
 
   const {
     error
@@ -693,7 +989,9 @@ async function markAsWatched() {
       currentMovie.id
     );
 
+
   if (error) {
+
     console.error(
       "Error actualizando película:",
       error
@@ -707,41 +1005,54 @@ async function markAsWatched() {
     return;
   }
 
+
   currentMovie.status =
     "watched";
 
+
   await showMovie();
-  await loadWatchedMovies();
-  await loadMovies();
+
+  await Promise.all([
+    loadWatchedMovies(),
+    loadMovies()
+  ]);
 }
+
 
 // =====================================================
 // GUARDAR PUNTUACIÓN
 // =====================================================
 
 async function saveRating() {
+
   if (!currentMovie) {
     return;
   }
+
 
   if (!currentUserId) {
     showUserSelector();
     return;
   }
 
+
   const select =
     document.getElementById(
       "score-select"
     );
 
+
   if (!select) {
     return;
   }
 
+
   const score =
     select.value;
 
+
   if (score === "") {
+
     alert(
       "Elegí una puntuación primero."
     );
@@ -749,19 +1060,23 @@ async function saveRating() {
     return;
   }
 
+
   const saveButton =
     document.getElementById(
       "save-rating-button"
     );
 
+
   if (!saveButton) {
     return;
   }
 
+
   saveButton.disabled = true;
 
   saveButton.textContent =
-    "Guardando...";
+    "Guardando…";
+
 
   const {
     data: existingRating,
@@ -779,7 +1094,9 @@ async function saveRating() {
     )
     .maybeSingle();
 
+
   if (findError) {
+
     console.error(
       "Error buscando puntuación:",
       findError
@@ -793,7 +1110,9 @@ async function saveRating() {
     return;
   }
 
+
   let error = null;
+
 
   if (existingRating) {
 
@@ -810,7 +1129,9 @@ async function saveRating() {
           existingRating.id
         );
 
-    error = result.error;
+
+    error =
+      result.error;
 
   } else {
 
@@ -820,16 +1141,22 @@ async function saveRating() {
         .insert({
           movie_id:
             currentMovie.id,
+
           user_id:
             currentUserId,
+
           score:
             Number(score)
         });
 
-    error = result.error;
+
+    error =
+      result.error;
   }
 
+
   if (error) {
+
     console.error(
       "Error guardando puntuación:",
       error
@@ -843,9 +1170,12 @@ async function saveRating() {
     return;
   }
 
+
   await showMovie();
+
   await loadWatchedMovies();
 }
+
 
 // =====================================================
 // PELÍCULAS VISTAS
@@ -857,11 +1187,13 @@ async function loadWatchedMovies() {
     return;
   }
 
+
   watchedMovies.innerHTML = `
     <div class="loading-card">
-      Cargando películas vistas...
+      Cargando películas vistas…
     </div>
   `;
+
 
   const {
     data: movies,
@@ -869,7 +1201,14 @@ async function loadWatchedMovies() {
   } = await supabase
     .from("movies")
     .select(
-      "id,title,year,poster_url,letterboxd_url,status"
+      `
+        id,
+        title,
+        year,
+        poster_url,
+        letterboxd_url,
+        status
+      `
     )
     .eq(
       "status",
@@ -882,6 +1221,7 @@ async function loadWatchedMovies() {
       }
     );
 
+
   if (error) {
 
     console.error(
@@ -889,17 +1229,12 @@ async function loadWatchedMovies() {
       error
     );
 
+
     watchedMovies.innerHTML = `
       <div class="loading-card">
 
         ❌ No se pudieron cargar
         las películas vistas.
-
-        <br><br>
-
-        <small>
-          ${escapeHTML(error.message)}
-        </small>
 
       </div>
     `;
@@ -907,13 +1242,14 @@ async function loadWatchedMovies() {
     return;
   }
 
+
   if (
     !movies ||
     movies.length === 0
   ) {
 
-    watchedCount.textContent =
-      "0";
+    updateWatchedCount(0);
+
 
     watchedMovies.innerHTML = `
       <div class="loading-card">
@@ -927,218 +1263,48 @@ async function loadWatchedMovies() {
     return;
   }
 
-  watchedCount.textContent =
-    movies.length;
 
-  let ratings = [];
+  updateWatchedCount(
+    movies.length
+  );
+
 
   const movieIds =
     movies.map(
       movie => movie.id
     );
 
-  if (movieIds.length > 0) {
 
-    const {
-      data: ratingData,
-      error: ratingsError
-    } = await supabase
-      .from("ratings")
-      .select("*")
-      .in(
-        "movie_id",
-        movieIds
-      );
+  const {
+    data: ratingData,
+    error: ratingsError
+  } = await supabase
+    .from("ratings")
+    .select("*")
+    .in(
+      "movie_id",
+      movieIds
+    );
 
-    if (
-      !ratingsError &&
-      ratingData
-    ) {
-      ratings =
-        ratingData;
-    }
-  }
+
+  const ratings =
+    !ratingsError &&
+    ratingData
+      ? ratingData
+      : [];
+
 
   watchedMovies.innerHTML =
     movies
-      .map(movie => {
-
-        const movieRatings =
-          ratings.filter(
-            rating =>
-              String(
-                rating.movie_id
-              ) ===
-              String(movie.id)
-          );
-
-        const victoriaRating =
-          movieRatings.find(
-            rating =>
-              rating.user_id ===
-              VICTORIA_ID
-          );
-
-        const axelRating =
-          movieRatings.find(
-            rating =>
-              rating.user_id ===
-              AXEL_ID
-          );
-
-        let average = null;
-
-        if (
-          victoriaRating &&
-          axelRating
-        ) {
-          average =
-            (
-              Number(
-                victoriaRating.score
-              ) +
-              Number(
-                axelRating.score
-              )
-            ) / 2;
-        }
-
-        const title =
-          escapeHTML(
-            movie.title
-          );
-
-        const year =
-          escapeHTML(
-            movie.year ?? ""
-          );
-
-        const poster =
-          getPosterURL(movie);
-
-        const letterboxd =
-          movie.letterboxd_url
-            ? String(
-                movie.letterboxd_url
-              ).trim()
-            : "";
-
-        return `
-          <article
-            class="watched-card"
-
-            ${
-              poster
-                ? `
-                  style="
-                    background-image:
-                      url('${escapeHTML(poster)}');
-                  "
-                `
-                : ""
-            }
-          >
-
-            <div
-              class="watched-card-overlay"
-            ></div>
-
-            <div
-              class="watched-card-content"
-            >
-
-              ${
-                !poster
-                  ? `
-                    <div
-                      class="watched-no-poster"
-                    >
-                      🎬
-                    </div>
-                  `
-                  : ""
-              }
-
-              <h3>
-                ${title}
-              </h3>
-
-              ${
-                year
-                  ? `
-                    <p>
-                      ${year}
-                    </p>
-                  `
-                  : ""
-              }
-
-              <div
-                class="watched-ratings"
-              >
-
-                <span>
-                  ❤️
-                  ${
-                    victoriaRating
-                      ? victoriaRating.score
-                      : "—"
-                  }
-                </span>
-
-                <span>
-                  💙
-                  ${
-                    axelRating
-                      ? axelRating.score
-                      : "—"
-                  }
-                </span>
-
-                ${
-                  average !== null
-                    ? `
-                      <span
-                        class="card-average"
-                      >
-                        ⭐
-                        ${average.toFixed(1)}
-                      </span>
-                    `
-                    : ""
-                }
-
-              </div>
-
-              <button
-                class="rate-movie-button"
-                data-movie-id="${escapeHTML(movie.id)}"
-                type="button"
-              >
-                ⭐ Puntuar
-              </button>
-
-              ${
-                letterboxd
-                  ? `
-                    <a
-                      class="card-letterboxd"
-                      href="${escapeHTML(letterboxd)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Letterboxd ↗
-                    </a>
-                  `
-                  : ""
-              }
-
-            </div>
-
-          </article>
-        `;
-      })
+      .map(
+        movie =>
+          renderWatchedCard(
+            movie,
+            ratings
+          )
+      )
       .join("");
+
 
   document
     .querySelectorAll(
@@ -1153,6 +1319,7 @@ async function loadWatchedMovies() {
           const movieId =
             button.dataset.movieId;
 
+
           const movie =
             movies.find(
               item =>
@@ -1160,14 +1327,18 @@ async function loadWatchedMovies() {
                 String(movieId)
             );
 
+
           if (!movie) {
             return;
           }
 
+
           currentMovie =
             movie;
 
+
           showMovie();
+
 
           window.scrollTo({
             top: 0,
@@ -1179,28 +1350,260 @@ async function loadWatchedMovies() {
     });
 }
 
+
+function updateWatchedCount(
+  count
+) {
+  if (watchedCount) {
+    watchedCount.textContent =
+      count;
+  }
+
+  if (watchedCountHeading) {
+    watchedCountHeading.textContent =
+      count;
+  }
+}
+
+
+function renderWatchedCard(
+  movie,
+  ratings
+) {
+
+  const movieRatings =
+    ratings.filter(
+      rating =>
+        String(
+          rating.movie_id
+        ) ===
+        String(movie.id)
+    );
+
+
+  const victoriaRating =
+    getRatingForUser(
+      movieRatings,
+      VICTORIA_ID
+    );
+
+
+  const axelRating =
+    getRatingForUser(
+      movieRatings,
+      AXEL_ID
+    );
+
+
+  const average =
+    calculateAverage(
+      victoriaRating,
+      axelRating
+    );
+
+
+  const title =
+    escapeHTML(
+      movie.title
+    );
+
+
+  const year =
+    escapeHTML(
+      movie.year ?? ""
+    );
+
+
+  const poster =
+    getPosterURL(movie);
+
+
+  const letterboxd =
+    getLetterboxdURL(movie);
+
+
+  const safeBackground =
+    poster
+      ? escapeHTML(
+          poster.replace(
+            /'/g,
+            "%27"
+          )
+        )
+      : "";
+
+
+  return `
+    <article
+      class="watched-card"
+
+      ${
+        poster
+          ? `
+            style="
+              background-image:
+                url('${safeBackground}');
+            "
+          `
+          : ""
+      }
+    >
+
+      <div
+        class="watched-card-overlay"
+        aria-hidden="true"
+      ></div>
+
+
+      <div
+        class="watched-card-content"
+      >
+
+        ${
+          !poster
+            ? `
+              <div
+                class="watched-no-poster"
+                aria-hidden="true"
+              >
+                🎬
+              </div>
+            `
+            : ""
+        }
+
+
+        <h3>
+          ${title}
+        </h3>
+
+
+        ${
+          year
+            ? `
+              <p>
+                ${year}
+              </p>
+            `
+            : ""
+        }
+
+
+        <div
+          class="watched-ratings"
+        >
+
+          <span>
+            ❤️
+            ${
+              victoriaRating
+                ? escapeHTML(
+                    victoriaRating.score
+                  )
+                : "—"
+            }
+          </span>
+
+
+          <span>
+            💙
+            ${
+              axelRating
+                ? escapeHTML(
+                    axelRating.score
+                  )
+                : "—"
+            }
+          </span>
+
+
+          ${
+            average !== null
+              ? `
+                <span
+                  class="card-average"
+                >
+                  ⭐
+                  ${average.toFixed(1)}
+                </span>
+              `
+              : ""
+          }
+
+        </div>
+
+
+        <button
+          class="rate-movie-button"
+          data-movie-id="${escapeHTML(movie.id)}"
+          type="button"
+        >
+          ⭐ Puntuar
+        </button>
+
+
+        ${
+          letterboxd
+            ? `
+              <a
+                class="card-letterboxd"
+                href="${escapeHTML(letterboxd)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Letterboxd ↗
+              </a>
+            `
+            : ""
+        }
+
+      </div>
+
+    </article>
+  `;
+}
+
+
 // =====================================================
 // INICIO
 // =====================================================
 
 if (shuffleButton) {
+
   shuffleButton.addEventListener(
     "click",
     shuffleMovie
   );
 }
 
-loadMovies();
 
-loadWatchedMovies();
+async function initializeApp() {
 
-updateUserDisplay();
+  updateUserDisplay();
+
+
+  await Promise.all([
+    loadMovies(),
+    loadWatchedMovies()
+  ]);
+
+
+  if (!currentUserId) {
+    showUserSelector();
+  }
+}
+
+
+initializeApp();
+
 
 // =====================================================
 // SERVICE WORKER
 // =====================================================
 
-if ("serviceWorker" in navigator) {
+if (
+  "serviceWorker" in navigator
+) {
 
   window.addEventListener(
     "load",
@@ -1228,5 +1631,4 @@ if ("serviceWorker" in navigator) {
 
     }
   );
-
 }
