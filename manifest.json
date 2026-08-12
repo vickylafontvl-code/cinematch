@@ -1,0 +1,10 @@
+{
+  "name": "CineMatch",
+  "short_name": "CineMatch",
+  "description": "Una película para Axel y Victoria",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#E50914",
+  "orientation": "portrait"
+}
