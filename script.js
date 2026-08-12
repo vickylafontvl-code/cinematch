@@ -1617,45 +1617,123 @@ function renderWheel() {
     getSelectedSnacks();
 
   snackWheel
-    .querySelectorAll(
-      ".wheel-item"
-    )
+    .querySelectorAll(".wheel-item")
     .forEach(
-      element =>
-        element.remove()
+      element => element.remove()
     );
 
   if (snacks.length === 0) {
+
+    snackWheel.style.setProperty(
+      "--wheel-colors",
+      "#e8e3da 0deg 360deg"
+    );
+
     return;
   }
 
-  const angle =
+
+  // ===================================================
+  // COLORES
+  // ===================================================
+
+  const colors = [
+    "#f6d7d7",
+    "#d8e5f5",
+    "#f4e4b8",
+    "#d8eadb",
+    "#e4d9ef",
+    "#f3d8b8",
+    "#d6e9e7",
+    "#ead8e1"
+  ];
+
+
+  const sliceAngle =
     360 / snacks.length;
+
+
+  const gradientParts =
+    snacks.map(
+      (_, index) => {
+
+        const start =
+          index * sliceAngle;
+
+        const end =
+          (index + 1) * sliceAngle;
+
+        const color =
+          colors[
+            index % colors.length
+          ];
+
+        return `
+          ${color}
+          ${start}deg
+          ${end}deg
+        `;
+
+      }
+    );
+
+
+  snackWheel.style.setProperty(
+    "--wheel-colors",
+    gradientParts.join(",")
+  );
+
+
+  // ===================================================
+  // TEXTO
+  // ===================================================
 
   snacks.forEach(
     (snack, index) => {
 
       const item =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
       item.className =
         "wheel-item";
 
+
+      /*
+        El centro de cada sector.
+        El -90 hace que el primer sector
+        comience arriba.
+      */
+
+      const angle =
+        index * sliceAngle +
+        sliceAngle / 2 -
+        90;
+
+
       item.innerHTML = `
-        ${snack.emoji}
-        ${escapeHTML(snack.name)}
+        <span class="wheel-item-emoji">
+          ${snack.emoji}
+        </span>
+
+        <span class="wheel-item-name">
+          ${escapeHTML(snack.name)}
+        </span>
       `;
 
-      const rotation =
-        index * angle;
+
+      item.style.setProperty(
+        "--item-angle",
+        `${angle}deg`
+      );
+
 
       item.style.transform = `
         translate(-50%, -50%)
-        rotate(${rotation}deg)
-        translateY(-145px)
+        rotate(${angle}deg)
+        translateY(-135px)
+        rotate(${-angle}deg)
       `;
+
 
       snackWheel.appendChild(
         item
@@ -1665,7 +1743,6 @@ function renderWheel() {
   );
 
 }
-
 
 // =====================================================
 // GIRAR RULETA
