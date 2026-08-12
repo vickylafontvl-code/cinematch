@@ -1297,7 +1297,7 @@ const defaultSnacks = [
   {
     id: "smiles",
     name: "Smiles",
-    emoji: "🫐"
+    emoji: "🍫"
   },
   {
     id: "facturas",
